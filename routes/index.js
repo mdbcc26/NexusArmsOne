@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.send('Hello from index router!');
+    res.render('index', {title: 'Planet Express!'});
 })
 
 const cbC1 = (req, res, next) => {
@@ -32,6 +32,16 @@ router.route('/tony/picture')
 router.post('/', (req, res) => {
     console.log(req.body);
     res.send('Got your POST request.')
+})
+
+router.get('/cookies', (req, res) => {
+    let counter = req.cookies['visitCounter'];
+    console.log('Current counter value', counter);
+    if (isNaN(counter)) counter = 0;
+    counter++;
+    console.log('New counter value', counter);
+    res.cookie('visitCounter', counter, {maxAge: 2 * 60 * 60 * 1000});
+    res.send('Cookie was set to ' + counter);
 })
 
 module.exports = router;

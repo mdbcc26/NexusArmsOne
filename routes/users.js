@@ -1,6 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/userController.js')
 
+
+router.get('/', userController.getUsers);
+router.get('/:id', userController.getUser);
+
+
+
+
+/*
 router.get('/', (req, res) => {
     res.send('Hello from users router!');
 })
@@ -10,4 +19,7 @@ router.get('/:id', (req, res) => {
     res.send('You requested user with id: ' + req.params.id)
 })
 
+ */
+
 module.exports = router;
+
