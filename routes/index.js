@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req,res) => {
-    res.send('Hello from the index router!')
+    res.render('index', {title: 'Express'});
+
+    //res.send('Hello from the index router!')
 });
 
 const cbC1 = (req, res, next) => {
@@ -31,5 +33,23 @@ router.post('/', (req, res) => {
     res.send('recieved a POST request')
 })
 
+router.get('/cookies', (req,res) => {
+    //visit counter and read cookies
+    let counter = req.cookies['visitCounter'];
+    console.log('Current counter value: ', counter)
+    if(isNaN(counter)) counter = 0;
+    counter++;
+    console.log('New counter value: ', counter)
+    //set cookies
+    res.cookie('visitCounter', counter, {maxAge: 2*60*60*1000})
+    res.send('Cookie was set to ' + counter)
+
+    /*read cookies
+    console.log(req.cookies);
+    //set cookies
+    res.cookie('myCookie', 'Hello World')
+    res.send('Cookie has been set')
+    */
+})
 
 module.exports = router;
