@@ -33,4 +33,15 @@ router.post('/', (req, res) => {
     res.send('received a POST request');
 });
 
+router.get('/cookies', (req, res) => {
+    let counter = req.cookies['visitCounter'];
+    console.log("Current counter value: " + counter);
+    if (isNaN(counter)) counter = 0;
+    counter ++;
+    console.log("New counter value: " + counter);
+    res.cookie('visitCounter', counter,{maxAge:2*60*60*1000});
+    res.send('Cookie was set to ' + counter);
+});
+
+
 module.exports = router;
