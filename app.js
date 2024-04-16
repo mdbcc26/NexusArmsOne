@@ -22,6 +22,7 @@ const usersRouter = require('./routes/users');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.use(express.static('public'));
 
 app.listen(port, () => {
     console.log(`Example app listening at
