@@ -1,8 +1,8 @@
-const userModel = require("../models/userModel");
+const userModel = require('../models/userModel.js');
 
-function getUsers(req,res,next) {
+function getUsers(req, res, next) {
     let users = userModel.getUsers();
-    res.render('users', {users});
+    res.render('users', {users})
 }
 
 function getUser(req, res, next) {

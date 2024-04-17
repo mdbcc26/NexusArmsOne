@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 
-router.get('/', userController.getUsers)
-router.get('/:id', userController.getUser)
+router.get('/', userController.getUsers);
+router.get('/:id', userController.getUser);
 
 /*
 router.get('/', (req,res) => {
@@ -15,4 +15,5 @@ router.get('/:id', (req, res) => {
     res.send('You requested user with id: ' + req.params.id)
 })
 */
+
 module.exports = router;
