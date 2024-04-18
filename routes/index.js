@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req,res) => {
-    res.render('index', {title: 'Express'});
+    res.render('index', {title: 'the NIMM Project'});
 
     //res.send('Hello from the index router!')
 });
