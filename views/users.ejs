@@ -5,11 +5,22 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a class="active" href="/users">Users</a>
+            <a href="/cookies">Cookies</a>
+        </div>
+        <br>
         <div class="card">
             <h1>This is our users page</h1>
             <% for (var i = 0; i < users.length; i++) { %>
-                <p> <%= users[i].name %> </p>
+                <a href="/users/<%= users[i].id %>"> <%= users[i].name %> </a>
+                <p> <%= users[i].hero %></p>
+                <p> <%= users[i].email %></p>
+                <p> <%= users[i].info %></p>
+                <br>
             <% } %>
         </div>
+        <br>
     </body>
 </html>
