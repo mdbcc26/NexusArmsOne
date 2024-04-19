@@ -1,4 +1,4 @@
-const users = [
+/* const users = [
     {
         id: 1,
         name: 'Tony Stark',
@@ -48,8 +48,16 @@ const users = [
     },
 ];
 
-function getUsers() {
-    return users;
+ */
+
+const db  = require('../services/database.js').config;
+
+function getUsers(cb) {
+    db.query('SELECT * FROM users', function (err, users, fields) {
+        if (err) cb(err);
+        console.log(users);
+        cb(null, users);
+    });
 }
 
 function getUser(id) {
