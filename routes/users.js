@@ -1,16 +1,9 @@
 const express = require('express');
 const router = express.Router();
-<<<<<<< HEAD
 const userController = require('../controllers/userController')
 
 router.get('/', userController.getUsers)
 router.get('/:id', userController.getUser)
-
-=======
-const userController = require('../controllers/userController');
-
-router.get('/', userController.getUsers);
-router.get('/:id', userController.getUser);
 
 /*
 router.get('/', (req,res) => {
@@ -22,6 +15,5 @@ router.get('/:id', (req, res) => {
     res.send('You requested user with id: ' + req.params.id)
 })
 */
->>>>>>> 333f70b40c65406d75ccf5b67fcf9d4442c38aad
 
 module.exports = router;

@@ -1,30 +1,5 @@
-<<<<<<< HEAD
 
-
-const users = [
-    {
-        id: 1,
-        name: "Tony Stark",
-        hero:  "Iron Man",
-        email: "ironman@avengers.com",
-        info: "I am Iron Man!"
-    },
-    {
-        id: 2,
-        name: "Wanda Maximoff",
-        hero: "Scarlett Witch",
-        email: "scarletwitch@avengers.com",
-        info: "You took everything from me."
-    },
-    {
-        id: 3,
-        name: "Peter Parker",
-        hero: "Spider-Man",
-        email: "spiderman@avengers.com",
-        info: "With great power comes great responsibility."
-    }
-=======
-const users = [
+/*const users = [
     {
         id: 1,
         name: 'Tony Stark',
@@ -72,29 +47,29 @@ const users = [
         email: 'baron@harkonnen.gp',
         info: 'My desert. My Arrakis. My Dune.'
     },
->>>>>>> 333f70b40c65406d75ccf5b67fcf9d4442c38aad
-];
+];*/
 
-function getUsers() {
-    return users;
+const db = require('../services/database.js').config;
+
+function getUsers(cb) {
+    db.query('SELECT * FROM users', function (err, users, fields) {
+        if (err) { cb(err) } //this is just for error handling
+        console.log(users);
+        cb(null, users)
+    });
 }
 
+/*function getUsers() {
+    return users;
+}*/
+
 function getUser(id) {
-<<<<<<< HEAD
-    let user = users.find(element => element.id === parseInt(id))
-    if(typeof user !== "undefined") {
-        return user;
-    } else {
-        return 'Error 404: This user could not be found.'
-=======
-    let user = users.find(element => element.id === parseInt(id));
-    if(typeof user !== 'undefined') {
-        return user;
-    }
-    else {
-        return 'Error 404: User not found.';
->>>>>>> 333f70b40c65406d75ccf5b67fcf9d4442c38aad
-    }
+        let user = users.find(element => element.id === parseInt(id));
+        if (typeof user !== 'undefined') {
+            return user;
+        } else {
+            return 'Error 404: User not found.';
+        }
 }
 
 module.exports = {
