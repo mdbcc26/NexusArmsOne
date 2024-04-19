@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html>
 <head>
     <title>Home</title>
@@ -11,4 +12,30 @@
 <% } %>
 
 </body>
+=======
+<html lang="en">
+    <head>
+        <title>All Users Page</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a class="active" href="/users">Users</a>
+            <a href="/cookies">Cookies</a>
+        </div>
+        <br>
+        <div class="card">
+            <h1>This is our users page</h1>
+            <% for (var i = 0; i < users.length; i++) { %>
+                <a href="/users/<%= users[i].id %>"> <%= users[i].name %> </a>
+                <p> <%= users[i].hero %></p>
+                <p> <%= users[i].email %></p>
+                <p> <%= users[i].info %></p>
+                <br>
+            <% } %>
+        </div>
+        <br>
+    </body>
+>>>>>>> 333f70b40c65406d75ccf5b67fcf9d4442c38aad
 </html>
