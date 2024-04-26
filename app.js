@@ -19,9 +19,11 @@ app.use(cookieParser());
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const moviesRouter = require('./routes/movies');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/movies', moviesRouter);
 
 app.use(express.static('public'));
 
