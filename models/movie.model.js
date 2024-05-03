@@ -33,9 +33,9 @@ const Movie = sequelize.define("movies", {
     vote_average: { type: DataTypes.FLOAT },
     vote_count: { type: DataTypes.INTEGER }
 });
-
+/*
 sequelize.sync({ force: true }).then(() => {
-    console.log(data);
+   /console.log(data);
     Movie.bulkCreate(data, { validate: true }).then((result) => {
         console.log("Data added successfully");
     });
@@ -43,7 +43,7 @@ sequelize.sync({ force: true }).then(() => {
 }).catch((err) => {
     console.log("Unable to create table: ", err);
 });
-
+*/
 module.exports = {
     Movie
 }

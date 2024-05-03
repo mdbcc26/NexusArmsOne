@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        const ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = function () {
+            console.log('websocket is connected ...')
+            ws.send('connected')
+        }
+
+        ws.onmessage = function (ev) {
+            console.log(ev);
+            addTextMessage(ev.data);
+        }
+        function sendMyMessage() {
+            let text = document.getElementById("text").value;
+            ws.send(text);
+        }
+        function addTextMessage(message){
+            let tag = document.createElement("p");
+            let text = document.createTextNode(message);
+            tag.appendChild(text);
+            let element = document.getElementById("messages");
+            element.appendChild(tag);
+        }
+    </script>
+</head>
+<body>
+    <div id="messages"></div>
+    <input id="text" type="text">
+    <button onclick="sendMyMessage()">Send</button>
+</body>
+</html>

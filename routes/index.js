@@ -7,6 +7,10 @@ router.get('/', (req,res) => {
     //res.send('Hello from the index router!')
 });
 
+router.get('/chat', (req, res) => {
+    res.render('chat')
+})
+
 const cbC1 = (req, res, next) => {
     console.log('this is cbC1');
     next();
