@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const db = require('./services/database.js')
+const ws = require('./services/websockets.js')
 const path = require('path');
 const ejs = require('ejs');
 

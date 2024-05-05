@@ -1,0 +1,9 @@
+<form action="/users/<%= user.id %>" method="post">
+    <% Object.keys(user).forEach(function (key){ %>
+    //here we can write plain html
+    <%= key %>: <input type="text"
+                    name="<%= key %>"
+                    value="<%= user[key] %>">
+    <% }) %>
+    <input type="submit" value="accept">
+</form>

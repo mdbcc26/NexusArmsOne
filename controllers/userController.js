@@ -12,7 +12,21 @@ function getUser(req, res, next) {
     res.render('user', {user});
 }
 
+function editUser(req,res,next) {
+    userModel.getUser(req.params.id)
+        .then(user => res.render('editUser', {user}))
+        .catch(err => res.sendStatus(500))
+}
+
+function updateUser(req,res,next) {
+    userModel.updateUser(req.body)
+        .then(user => res.render('user', {user}))
+        .catch(err => res.sendStatus(500))
+}
+
 module.exports = {
     getUser,
-    getUsers
+    getUsers,
+    editUser,
+    updateUser
 }

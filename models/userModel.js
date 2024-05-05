@@ -67,7 +67,28 @@ function getUser(id) {
     }
 }
 
+let updateUser = (userData) => new Promise ((resolve,reject) => {
+    let sql = "UPDATE users SET" +
+    "name = " + db.escape(userData.name) +
+    ", surname = " + db.escape(userData.surname) +
+    ", email = " + db.escape(userData.email) +
+    ", hero = " + db.escape(userData.hero) +
+    ", info = " + db.escape(userData.info) +
+    " WHERE id = " +parseInt(userData.id);
+
+    console.log(sql);
+
+    db.query(sql, function (err, result, fields) {
+        if (err) {
+            reject(err);
+        }
+        console.log(result.affectedRows + "rows have been affected.")
+        resolve(userData)
+    })
+})
+
 module.exports = {
     getUsers,
-    getUser
+    getUser,
+    updateUser,
 }
