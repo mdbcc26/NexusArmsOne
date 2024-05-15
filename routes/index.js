@@ -3,10 +3,10 @@ const router = express.Router();
 
 router.get('/', (req,res) => {
     res.render('index', {title: 'the NIMM Project'});
-
     //res.send('Hello from the index router!')
 });
 
+/*Examples for routing
 const cbC1 = (req, res, next) => {
     console.log('this is cbC1');
     next();
@@ -19,7 +19,8 @@ const cbC3 = (req, res) => {
     res.send('this is cbC3');
 };
 router.get('/example/c', [cbC1, cbC2, cbC3]);
-
+*/
+/* Examples for GET and POST requests
 router.route('/tony/picture')
     .get((req, res) => {
         res.send('GET request for /tony/picture')
@@ -31,7 +32,8 @@ router.route('/tony/picture')
 router.post('/', (req, res) => {
     console.log(req.body);
     res.send('recieved a POST request')
-})
+});
+*/
 
 router.get('/cookies', (req,res) => {
     //visit counter and read cookies
@@ -43,7 +45,6 @@ router.get('/cookies', (req,res) => {
     //set cookies
     res.cookie('visitCounter', counter, {maxAge: 2*60*60*1000})
     res.send('Cookie was set to ' + counter)
-
     /*read cookies
     console.log(req.cookies);
     //set cookies

@@ -5,23 +5,39 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div class="topnav">
-            <a href="/">Home</a>
-            <a href="/users">Users</a>
-            <a href="/cookies">Cookies</a>
-            <a href="/movies">Movies</a>
-        </div>
-        <br>
-        <h1>Displays a user's page</h1>
-        <div class="card">
-            <h1><%= user.name %></h1>
-            <ul>
-                <li>Id: <%=user.id%></li>
-                <li>Hero: <%= user.hero %></li>
-                <li>Email: <%=user.email%></li>
-                <li>Info: <%=user.info%></li>
-            </ul>
-        </div>
+
+        <% if (typeof user.id !== 'undefined') { %>
+
+            <h1> This is our awesome user </h1>
+
+            <div class="header">
+                <h2>USER PROFILE</h2>
+            </div>
+
+            <div class="profile">
+
+                <div class="profileData">
+                    <div class="profileInfo">
+                        <p>name:</p>
+                        <p> <%= user.name %> </p>
+                    </div>
+
+                    <div class="profileInfo">
+                        <p>surname:</p>
+                        <p> <%= user.surname %> </p>
+                    </div>
+                    <div class="profileInfo">
+                        <p>hero-name:</p>
+                        <p> <%= user.hero %> </p>
+                    </div>
+                </div>
+
+                <div class="imagePlaceholder"></div>
+            </div>
+
+        <% } else { %>
+            <h2> This user does not exist! Try a different id...</h2>
+        <% } %>
 
     </body>
 </html>

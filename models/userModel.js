@@ -1,5 +1,6 @@
 const db = require('../services/database.js').config;
-/*const users = [
+
+const users = [
     {
         id: 1,
         name: 'Tony Stark',
@@ -47,7 +48,7 @@ const db = require('../services/database.js').config;
         email: 'baron@harkonnen.gp',
         info: 'My desert. My Arrakis. My Dune.'
     },
-];*/
+];
 
 function getUsers(cb) {
     db.query('SELECT * FROM users', function(err, users, fields) {
@@ -58,13 +59,21 @@ function getUsers(cb) {
 }
 
 function getUser(id) {
-    let user = users.find(element => element.id === parseInt(id));
-    if(typeof user !== 'undefined') {
-        return user;
-    }
-    else {
-        return 'Error 404: User not found.';
-    }
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM users WHERE id = ?';
+        db.query(sql, [id], function (err, results) {
+            if (err) {
+                console.error("Failed to retrieve user:", err);
+                reject(err);  // Reject the promise with the error
+            } else if (results.length > 0) {
+                console.log("User fetched successfully.");
+                resolve(results[0]);  // Resolve with the first (and should be only) result
+            } else {
+                console.log("User not found.");
+                resolve(null);  // Resolve with null if no user is found
+            }
+        });
+    });
 }
 
 let updateUser = (userData) => new Promise ((resolve,reject) => {

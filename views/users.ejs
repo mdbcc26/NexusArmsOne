@@ -14,13 +14,12 @@
         <br>
         <div class="card">
             <h1>This is our users page</h1>
-            <% for (var i = 0; i < users.length; i++) { %>
-                <a href="/users/<%= users[i].id %>"> <%= users[i].name %> </a>
-                <p> <%= users[i].hero %></p>
-                <p> <%= users[i].email %></p>
-                <p> <%= users[i].info %></p>
-                <br>
-            <% } %>
+            <a> <%= users[0].name %> <%= users[0].surname %></a>
+            <p> <%= users[0].hero %></p>
+            <p> <%= users[1].email %></p>
+            <p> <%= users[1].info %></p>
+
+
         </div>
         <br>
     </body>
