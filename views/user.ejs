@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>User Page</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a href="/users">Users</a>
+            <a href="/cookies">Cookies</a>
+        </div>
+        <br>
+        <h1>Displays a user's page</h1>
+        <div class="card">
+            <h1><%= user.name %></h1>
+            <ul>
+                <li>Id: <%=user.id%></li>
+                <li>Hero: <%= user.hero %></li>
+                <li>Email: <%=user.email%></li>
+                <li>Info: <%=user.info%></li>
+            </ul>
+        </div>
+
+    </body>
+</html>
