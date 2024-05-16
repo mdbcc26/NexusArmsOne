@@ -1,16 +1,20 @@
 const userModel = require('../models/userModel.js');
 
 function getUsers(req, res, next) {
-    let users = userModel.getUsers();
-    res.render('users', {users})
+    userModel.getUsers().then(users => res.render('users', {users})).catch(err => res.sendStatus(500));
 }
 
 function getUser(req, res, next) {
-    let user = userModel.getUser(req.params.id);
-    res.render('user', {user});
+    userModel.getUser(req.params.id).then(user => res.render('user', {user})).catch(err => res.sendStatus(500))
+}
+
+function deleteUser(req, res, next) {
+    console.log(req.body)
+    // userModel.deleteUser(req.body).then();
 }
 
 module.exports = {
     getUser,
-    getUsers
+    getUsers,
+    deleteUser
 }

@@ -11,7 +11,7 @@ h1 {
     text-align: center;
 }
 
-p {
+p{
     color: #adb7bd;
     font-size: 18px;
     line-height: 26px;
@@ -39,6 +39,10 @@ a:hover {
     border-radius: 20px;
     transition: all .2s;
     padding: 1rem;
+}
+
+.card li {
+    color: white;
 }
 
 /*==================================================================================*/
