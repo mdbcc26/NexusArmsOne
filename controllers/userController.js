@@ -25,7 +25,6 @@ function updateUser(req, res, next) {
         .catch(error => res.sendStatus(500))
 }
 
-
 module.exports = {
     getUser,
     getUsers,
