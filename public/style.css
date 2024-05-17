@@ -63,3 +63,13 @@ a:hover {
     background-color: #04AA6D;
     color: white;
 }
+
+.card li {
+    color: white;
+}
+
+.btn {
+    color: green;
+    padding: 20px;
+    font-size: large;
+}

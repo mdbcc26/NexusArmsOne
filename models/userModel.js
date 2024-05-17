@@ -60,14 +60,12 @@ function getUsers(cb) {
     });
 }
 
-function getUser(id) {
-    let user = users.find(element => element.id === parseInt(id));
-    if(typeof user !== 'undefined') {
-        return user;
-    }
-    else {
-        return 'Error 404: User not found.';
-    }
+function getUser(id, cb) {
+    db.query('SELECT * FROM users WHERE id = ' + parseInt(id), function (err, user, fields) {
+        if (err) cb(err);
+        console.log(user);
+        cb(null, user[0]);
+    });
 }
 
 let updateUser = (user) => new Promise((resolve, reject) => {

@@ -9,8 +9,11 @@ function getUsers(req, res, next) {
 }
 
 function getUser(req, res, next) {
-    let user = userModel.getUser(req.params.id);
-    res.render('user', {user});
+    userModel.getUser(req.params.id, function (err, user){
+        if (err) res.sendStatus(500);
+        res.render('user', {user})
+    });
+
 }
 
 function editUser(req, res, next) {

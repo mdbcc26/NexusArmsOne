@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="/style.css">
     <script>
         const ws = new WebSocket('ws://localhost:8080')
 
@@ -31,6 +32,14 @@
 </head>
 
 <body>
+<div class="topnav">
+    <a href="/">Home</a>
+    <a href="/users">Users</a>
+    <a href="/chat">Chat</a>
+    <a href="/login">Login</a>
+    <a href="/cookies">Cookies</a>
+</div>
+
     <div id="messages"></div>
     <input id="text" type="text">
     <button onclick="sendMyMessage()">Send</button>
