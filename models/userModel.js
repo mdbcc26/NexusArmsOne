@@ -1,4 +1,5 @@
 const {connection} = require("../services/database");
+const string_decoder = require("node:string_decoder");
 
 function getUsers() {
     return new Promise((resolve, reject) => {
@@ -30,8 +31,24 @@ function deleteUser(id) {
     })
 }
 
+let addUser = (userData) => new Promise(async (resolve, reject) => {
+    // insert into all columns in the users datatable the data from the form in the view
+    let sql = "INSERT INTO users (name_users, surname_users, rank, clearance, email, password, id_files) VALUES (" +
+        db.escape(userData.name_users) + ", " +
+        db.escape(userData.surname_users) + ", " +
+        db.escape(userData.id_files) + ")";
+    console.log(sql);
+    db.query(sql, function (err, result, fields){
+        if(err){
+            reject(err)
+        }
+        resolve(userData);
+    })
+})
+
 module.exports = {
     getUsers,
     getUser,
-    deleteUser
+    deleteUser,
+    addUser
 }

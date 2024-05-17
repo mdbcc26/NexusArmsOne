@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+const authenticationService = require('../services/authentication');
+const userModel = require('../models/userModel')
+
 router.get('/', (req,res) => {
     res.render('index', {title: 'the NIMM Project'});
 
@@ -20,6 +23,21 @@ const cbC3 = (req, res) => {
 };
 router.get('/example/c', [cbC1, cbC2, cbC3]);
 
+router.route('/login')
+    .get((req, res, next) => {
+        res.render('login');
+    })
+    .post((req, res, next) => {
+        userModel.getUsers()
+            .then((users) => {
+                authenticationService.authenticateUser(req.body, users, res)
+            })
+            .catch((err) => {
+                res.sendStatus(500)
+            })
+    });
+
+
 router.route('/tony/picture')
     .get((req, res) => {
         res.send('GET request for /tony/picture')
@@ -32,7 +50,6 @@ router.post('/', (req, res) => {
     console.log(req.body);
     res.send('recieved a POST request')
 })
-
 router.get('/cookies', (req,res) => {
     //visit counter and read cookies
     let counter = req.cookies['visitCounter'];
@@ -51,5 +68,13 @@ router.get('/cookies', (req,res) => {
     res.send('Cookie has been set')
     */
 })
+
+
+
+
+router.route('/register')
+    .get((req, res,next) => {
+        req.render('login')
+    })
 
 module.exports = router;
