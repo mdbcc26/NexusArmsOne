@@ -50,48 +50,68 @@
 ];*/
 
 const db = require('../services/database.js').config;
+const bycrypt = require('bcrypt');
 
-function getUsers(cb) {
+let getUsers = () => new Promise((resolve, reject) => {
     db.query('SELECT * FROM users', function (err, users, fields) {
-        if (err) { cb(err) } //this is just for error handling
-        console.log(users);
-        cb(null, users)
+        if (err) {
+            reject(err);
+        }
+        else {
+            console.log(users);
+            resolve(users);
+        }
     });
-}
+});
 
-/*function getUsers() {
-    return users;
-}*/
-
-function getUser(id) {
-    return new Promise((resolve, reject) => {
-        const sql = 'SELECT * FROM users WHERE id = ?';
-        db.query(sql, [id], function (err, results) {
-            if (err) {
-                console.error("Failed to retrieve user:", err);
-                reject(err);  // Reject the promise with the error
-            } else if (results.length > 0) {
-                console.log("User fetched successfully.");
-                resolve(results[0]);  // Resolve with the first (and should be only) result
-            } else {
-                console.log("User not found.");
-                resolve(null);  // Resolve with null if no user is found
-            }
-        });
+let getUser = (id) => new Promise((resolve, reject) => {
+    db.query(`SELECT * FROM users WHERE id = ` + parseInt(id), function (err, user, fields) {
+        if (err) {
+            reject(err);
+        }
+        else {
+            console.log(user);
+            resolve(user[0]);
+        }
     });
-}
+});
 
-
-let updateUser = (userData) => new Promise((resolve, reject)=>{
-    let sql = "UPDATE users SET " +
+let updateUser = (user) => new Promise(async (resolve, reject) => {
+    userData.password = await bcrypt.hash(userData.password, 10);
+    let sql = "UPDATE users SET" +
         "name = " + db.escape(userData.name) +
         ", surname = " + db.escape(userData.surname) +
-        ", hero = " + db.escape(userData.hero) +
         ", email = " + db.escape(userData.email) +
+        ", hero = " + db.escape(userData.hero) +
         ", info = " + db.escape(userData.info) +
-        "WHERE id = " + parseInt(userData.id);
+        " WHERE id = " + parseInt(userData.id);
+
     console.log(sql);
-    db.query(sql, function (err, result, fields){
+
+    db.query(sql, function (err, result, fields) {
+        if (err) {
+            reject(err);
+        }
+        console.log(result.affectedRows + " rows affected")
+        resolve(userData);
+    })
+})
+
+
+
+let addUser = (userData) => new Promise( async (resolve, reject) => {
+    userData.password = await bcrypt.hash(userData.password, 10);
+    let sql = `INSERT INTO ${usersTable} (name, surname, hero, email, info, password)
+VALUES (` +
+        db.escape(userData.name) + ", " +
+        db.escape(userData.surname) + ", " +
+        db.escape(userData.hero) + ", " +
+        db.escape(userData.email) + ", " +
+        db.escape(userData.info) + ", " +
+        db.escape(userData.password) + ")";
+    console.log(sql);
+
+db.query(sql, function (err, result, fields){
         if(err) {
             reject(err)
         }
@@ -103,5 +123,6 @@ let updateUser = (userData) => new Promise((resolve, reject)=>{
 module.exports = {
     getUsers,
     getUser,
-    updateUser
+    updateUser,
+    addUser
 }

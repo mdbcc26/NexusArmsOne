@@ -2,15 +2,15 @@
 const userModel = require('../models/userModel.js');
 
 function getUsers(req, res, next) {
-    let users = userModel.getUsers(function (err, users) {
-        if (err) res.sendStatus(500);
-        res.render('users', {users})
-    });
+    userModel.getUser(parseInt(req.params.id))
+        .then((users) => {res.render('user', {users})})
+        .catch((err) => {res.sendStatus(500); next(err);})
 }
 
 function getUser(req, res, next) {
-    let user = userModel.getUser(req.params.id);
-    res.render('user', {user})
+    userModel.getUser(parseInt(req.params.id))
+        .then((user) => {res.render('user', {user})})
+        .catch((err) => {res.sendStatus(500)})
 }
 
 function editUser(req, res, next) {

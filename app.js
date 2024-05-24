@@ -7,6 +7,9 @@ const ws = require('./services/websockets')
 const path = require('path');
 const ejs = require('ejs');
 
+const fs = require('fs');
+const morgan = require('morgan');
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -22,9 +25,20 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, './logs/requests.log'), { flags: 'a' })
+
+app.use(morgan('combined', { stream: accessLogStream }))
+
+app.use(morgan('short'))
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/movies', moviesRouter);
+
+function errorHandler(err, req, res, next) {
+    res.render('error', { error: err });
+}
+app.use(errorHandler);
 
 app.use(express.static('public'));
 

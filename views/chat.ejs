@@ -1,34 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <title>Chat room</title>
+    <link rel="stylesheet" href="style.css">
     <script>
         const ws = new WebSocket('ws://localhost:8080');
 
         ws.onopen = function () {
             console.log('websocket is connected ...')
-            ws.send('connected')
+            ws.send(JSON.stringify({
+                room: "",
+                data: "connected",
+            }));
         }
 
         ws.onmessage = function (ev) {
             console.log(ev);
-            addTextMessage(ev.data);
+            addTextMessage(JSON.parse(ev.data));
         }
+
         function sendMyMessage() {
+            let room = document.getElementById("room").value;
             let text = document.getElementById("text").value;
-            ws.send(text);
+            let message = {
+                room: room,
+                message: text,
+            }
+            ws.send(JSON.stringify(message));
         }
+
         function addTextMessage(message){
             let tag = document.createElement("p");
-            let text = document.createTextNode(message);
-            tag.appendChild(text);
+            tag.innerHTML = message.message;
             let element = document.getElementById("messages");
             element.appendChild(tag);
         }
+
+        function join() {
+            let room = document.getElementById("room").value;
+            ws.send(JSON.stringify({joinRoom: room}));
+        }
+
     </script>
 </head>
 <body>
+<div class="topnav">
+    <a class="active" href="/">Home</a>
+    <a href="/users">Users</a>
+    <a href="/chat">Chat</a>
+    <a href="/login">Login</a>
+    <a href="/cookies">Cookies</a>
+</div>
     <div id="messages"></div>
     <input id="text" type="text">
     <button onclick="sendMyMessage()">Send</button>
+    <input id="room" placeholder="test" type="text"/>
+    <button onclick="join()">Join room</button>
 </body>
 </html>
