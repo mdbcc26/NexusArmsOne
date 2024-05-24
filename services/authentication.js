@@ -1,11 +1,18 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
 
-function authenticateUser({username, password}, users, res) {
+async function checkPassword(password, hash){
+    let pw = await bcrypt.compare(password, hash)
+    return pw;
+}
+
+async function authenticateUser({username, password}, users, res) {
     const user = users.find(user => {
-        return user.hero === username && user.password === password;
+        return user.hero === username;
     });
 
-    if (user) {
+    if (user && await checkPassword(password, user.password)) {
         const accessToken = jwt.sign ({id: user.id, name: user.name}, process.env.ACCESS_TOKEN_SECRET);
         res.cookie('accessToken', accessToken);
         res.redirect('/users/' + user.id);

@@ -5,15 +5,12 @@ function getUsers(req, res, next) {
         if (err) res.sendStatus(500);
         res.render('users', {users})
     });
-
 }
 
 function getUser(req, res, next) {
-    userModel.getUser(req.params.id, function (err, user){
-        if (err) res.sendStatus(500);
-        res.render('user', {user})
-    });
-
+    userModel.getUser(parseInt(req.params.id))
+        .then((user) => {res.render('user', {user})})
+        .catch((err) => {res.sendStatus(500)})
 }
 
 function editUser(req, res, next) {
