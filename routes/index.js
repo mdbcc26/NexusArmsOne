@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const userModel = require('../models/userModel.js');
+const authentication = require('../services/authentication.js');
 
 router.get('/', (req,res) => {
     res.render('index', {title: 'the NIMM Project'});
@@ -56,5 +58,24 @@ router.get('/cookies', (req,res) => {
 router.get('/chat', (req,res) =>{
     res.render('chat')
 });
+
+router.route('/login')
+    .get((req, res, next) => {
+        res.render('login');
+    })
+    .post((req, res, next) => {
+    userModel.getUsers()
+        .then(users => {
+            authentication.authenticateUser(req.body, users, res);
+        })
+        .catch(err => res.sendStatus(500))
+    });
+
+
+router.get ('/logout', (req, res, next) =>{
+    res.cookie('accessToken', '', {maxAge: 0});
+    res.redirect('/')
+});
+
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel.js');
 
+/* uses callbacks
 function getUsers(req, res, next) {
     let users = userModel.getUsers(function (err, users) {
         if (err) res.sendStatus(500);
@@ -7,18 +8,25 @@ function getUsers(req, res, next) {
     });
 }
 
-    async function getUser(req, res) {
-        try {
-            const user = await getUser(req.params.id);
-            if (user) {
-                res.send(user);
-            } else {
-                res.status(404).send('User not found');
-            }
-        } catch (err) {
-            res.status(500).send('Error retrieving user: ' + err.message);
-        }
-    }
+function getUser(req, res, next) {
+    userModel.getUser(req.params.id, function (err, user) {
+        if (err) res.sendStatus(500);
+        res.render('user', {user})
+    });
+}
+*/
+
+function getUsers(req, res, next) {
+    userModel.getUsers()
+        .then((users) => {res.render('users', {users})})
+        .catch((err) => {res.sendStatus(500)})
+}
+
+function getUser(req, res, next) {
+    userModel.getUser(parseInt(req.params.id))
+        .then((user) => {res.render('user', {user})})
+        .catch((err) => {res.status(500); next(err)})
+}
 
 function editUser(req,res,next) {
     userModel.getUser(req.params.id)

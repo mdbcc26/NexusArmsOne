@@ -5,6 +5,8 @@ const db = require('./services/database.js')
 const ws = require('./services/websockets.js')
 const path = require('path');
 const ejs = require('ejs');
+const fs = require('fs');
+const morgan = require('morgan');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -20,15 +22,22 @@ app.use(cookieParser());
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies.js');
-//const userRouter = require('./routes/user.js');
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, './logs/requests.log'), {flags: 'a'});
+
+app.use(morgan('combined', {stream: accessLogStream}));
+app.use(morgan('short'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/movies', moviesRouter);
-//app.use('/user/:id', userRouter);
-
 
 app.use(express.static('public'));
+
+function errorHandler(err, req, res, next) {
+    res.render('error', {error: err});
+}
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Example app listening at
