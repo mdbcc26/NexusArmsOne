@@ -3,6 +3,7 @@ const router = express.Router();
 const userModel = require('../models/userModel.js');
 const authentication = require('../services/authentication.js');
 
+//Route to get to index page (home page)
 router.get('/', (req,res) => {
     res.render('index', {title: 'the NIMM Project'});
     //res.send('Hello from the index router!')
@@ -37,6 +38,8 @@ router.post('/', (req, res) => {
 });
 */
 
+
+//Route to get to cookies page
 router.get('/cookies', (req,res) => {
     //visit counter and read cookies
     let counter = req.cookies['visitCounter'];
@@ -55,10 +58,12 @@ router.get('/cookies', (req,res) => {
     */
 })
 
+//Route to get to chat page
 router.get('/chat', (req,res) =>{
     res.render('chat')
 });
 
+//Route to get to login page
 router.route('/login')
     .get((req, res, next) => {
         res.render('login');
