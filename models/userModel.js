@@ -50,8 +50,7 @@ const users = [
         info: 'My desert. My Arrakis. My Dune.'
     },
 ];
-*/
-/*Functions that use callbacks OUTDATED
+
 function getUsers(cb) {
     db.query('SELECT * FROM users', function(err, users, fields) {
         if (err) cb(err);
@@ -115,7 +114,7 @@ let updateUser = (userData) => new Promise (async (resolve,reject) => {
 
 let addUser = (userData) => new Promise( async (resolve, reject) => {
     userData.password = await bcrypt.hash(userData.password, 10);
-    let sql = `INSERT INTO ${usersTable} (name, surname, hero, email, info, password)
+    let sql = `INSERT INTO users (name, surname, hero, email, info, password)
 VALUES (` +
         db.escape(userData.name) + ", " +
         db.escape(userData.surname) + ", " +
@@ -133,9 +132,21 @@ VALUES (` +
     })
 });
 
+let deleteUser = (id) => new Promise((resolve, reject) => {
+    db.query(`DELETE FROM users WHERE id = ` + parseInt(id), function (err, user, fields) {
+        if (err) {
+            reject(err);
+        } else {
+            console.log(user);
+            resolve(user[0]);
+        }
+    });
+});
+
 module.exports = {
     getUsers,
     getUser,
     updateUser,
     addUser,
+    deleteUser
 }

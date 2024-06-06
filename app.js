@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const path = require('path');
-const ejs = require('ejs');
 const fs = require('fs');
 const morgan = require('morgan');
 
@@ -19,7 +18,6 @@ app.use(cookieParser());
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const moviesRouter = require('./routes/movies.js');
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, './logs/requests.log'), {flags: 'a'});
 
@@ -28,7 +26,6 @@ app.use(morgan('short'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/movies', moviesRouter);
 
 app.use(express.static('public'));
 

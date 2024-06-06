@@ -31,16 +31,14 @@
         function addTextMessage(message) {
             let tag = document.createElement('p');
             tag.innerHTML = message.message;
-            document.getElementById("messages").appendChild(tag);
-            /*let text = document.createTextNode(message);
-            tag.appendChild(text);
-            let element = document.getElementById('messages');
-            element.appendChild(tag);*/
+            let element = document.getElementById("messages");
+            element.appendChild(tag);
         }
 
         function join() {
             let room = document.getElementById('room').value;
             ws.send(JSON.stringify({joinRoom: room}));
+            console.log('Joining room: ' + room);
         }
 
     </script>
@@ -53,10 +51,13 @@
     <a class="active" href="/chat">Chat</a>
     <a href="/movies">Movies</a>
 </div>
+<br>
+<div class="card">
     <div id="messages"></div>
     <input id="text" type="text">
     <button onclick="sendMyMessage()">Send</button>
     <input id="room" placeholder="Name of Room">
     <button onclick="join()">Join room</button>
+</div>
 </body>
 </html>

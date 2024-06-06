@@ -28,6 +28,12 @@ function getUser(req, res, next) {
         .catch((err) => {res.status(500); next(err)})
 }
 
+function addUser(req, res, next) {
+    userModel.addUser(req.body)
+        .then(user => res.render('user', {user}))
+        .catch(err => res.sendStatus(500))
+}
+
 function editUser(req,res,next) {
     userModel.getUser(req.params.id)
         .then(user => res.render('editUser', {user}))
@@ -49,6 +55,8 @@ function deleteUser(req,res,next) {
 module.exports = {
     getUser,
     getUsers,
+    addUser,
     editUser,
-    updateUser
+    updateUser,
+    deleteUser,
 }

@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
-const bycrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
 
 async function checkPassword(password, hash) {
-    let pw = await bycrypt.compare(password, hash);
+    let pw = await bcrypt.compare(password, hash);
     return pw;
 }
 
@@ -26,14 +26,18 @@ function authenticateJWT(req, res, next) {
     const token = req.cookies['accessToken'];
 
     if (token) {
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
+        jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) =>{
             if (err) {
                 return res.sendStatus(403);
             }
             console.log(user);
             req.user = user;
+            next();
         })
     } else {res.sendStatus(401);}
 }
 
-module.exports = {authenticateUser, authenticateJWT}
+module.exports = {
+    authenticateUser,
+    authenticateJWT
+}
