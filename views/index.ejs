@@ -13,6 +13,13 @@
             <a href="/login">Login</a>
         </div>
         <br>
+
+        <% if (typeof confirmationMessage !== 'undefined' && confirmationMessage !== '') { %>
+            <div class="confirmation-message">
+                <%= confirmationMessage %>
+            </div>
+        <% } %>
+
         <div class="card">
             <h1>Welcome to <br> <%= title %>  </h1>
             <p>We are group 15 of the class server side coding.</p>

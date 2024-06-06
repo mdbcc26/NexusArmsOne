@@ -1,21 +1,5 @@
 const userModel = require('../models/userModel.js');
 
-/* uses callbacks
-function getUsers(req, res, next) {
-    let users = userModel.getUsers(function (err, users) {
-        if (err) res.sendStatus(500);
-        res.render('users', {users})
-    });
-}
-
-function getUser(req, res, next) {
-    userModel.getUser(req.params.id, function (err, user) {
-        if (err) res.sendStatus(500);
-        res.render('user', {user})
-    });
-}
-*/
-
 function getUsers(req, res, next) {
     userModel.getUsers()
         .then((users) => {res.render('users', {users})})
@@ -48,8 +32,11 @@ function updateUser(req,res,next) {
 
 function deleteUser(req,res,next) {
     userModel.deleteUser(req.params.id)
-        .then(user => res.render('users', {user}))
-        .catch(err => res.sendStatus(500))
+        .then(() => {
+            res.cookie('confirmationMessage', 'User has been deleted successfully.', { maxAge: 5000 });
+            res.redirect('/');
+        })
+        .catch(err => res.sendStatus(500));
 }
 
 module.exports = {
