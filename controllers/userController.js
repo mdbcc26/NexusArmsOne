@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel.js');
+const authentication = require('../services/authentication.js');
 
 function getUsers(req, res, next) {
     userModel.getUsers()
@@ -12,10 +13,19 @@ function getUser(req, res, next) {
         .catch((err) => {res.status(500); next(err)})
 }
 
+
 function addUser(req, res, next) {
-    userModel.addUser(req.body)
-        .then(user => res.render('user', {user}))
-        .catch(err => res.sendStatus(500))
+    const { name, surname, hero, email, info, password } = req.body;
+
+    if (!name || !surname || !hero || !email || !info || !password) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    userModel.addUser({ name, surname, hero, email, info, password })
+        .then(result => {
+            res.redirect('/login')
+        })
+        .catch(err => next(err));
 }
 
 function editUser(req,res,next) {
@@ -39,6 +49,15 @@ function deleteUser(req,res,next) {
         .catch(err => res.sendStatus(500));
 }
 
+function authenticateUser(req, res) {
+    userModel.getUsers()
+        .then(users => {
+            authentication.authenticateUser(req.body, users, res);
+        })
+        .catch(err => res.sendStatus(500))
+}
+
+
 module.exports = {
     getUser,
     getUsers,
@@ -46,4 +65,5 @@ module.exports = {
     editUser,
     updateUser,
     deleteUser,
+    authenticateUser
 }
