@@ -4,8 +4,8 @@ const userModel = require('../models/userModel.js');
 const authentication = require('../services/authentication.js');
 
 router.get('/', (req,res) => {
-    const confirmationMessage = req.cookies.confirmationMessage || '';
-    res.clearCookie('confirmationMessage');
+    /*const confirmationMessage = req.cookies.confirmationMessage || '';
+    res.clearCookie('confirmationMessage');*/
     res.render('index', {title: 'the NIMM Project'});
 });
 
@@ -24,10 +24,10 @@ router.get('/chat', (req,res) =>{
 });
 
 router.route('/login')
-    .get((req, res, next) => {
+    .get((req, res) => {
         res.render('login');
     })
-    .post((req, res, next) => {
+    .post((req, res) => {
     userModel.getUsers()
         .then(users => {
             authentication.authenticateUser(req.body, users, res);
@@ -36,13 +36,13 @@ router.route('/login')
     });
 
 
-router.get ('/logout', (req, res, next) =>{
+router.get ('/logout', (req, res) =>{
     res.cookie('accessToken', '', {maxAge: 0});
     res.redirect('/')
 });
 
 router.route('/register')
-    .get((req, res, next) => {
+    .get((req, res) => {
         res.render('register');
     })
     .post( (req, res, next) => {
@@ -55,7 +55,7 @@ router.route('/register')
         userModel.addUser({ name, surname, hero, email, info, password })
             //.then(result => res.status(201).json(result))
             .then(result => {
-                res.redirect('/')
+                res.redirect('/login')
             })
             .catch(err => next(err));
     });

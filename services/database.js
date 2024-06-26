@@ -12,7 +12,7 @@ const config = mysql.createConnection({
 
 config.connect(function (err) {
     if (err) throw err;
-    console.log("Connected to database!")
+    console.log("Connected to cc231022 database!")
 });
 
 const sequelize = new Sequelize(

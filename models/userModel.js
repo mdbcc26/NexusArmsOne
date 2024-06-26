@@ -2,7 +2,7 @@ const db = require('../services/database.js').config;
 const bcrypt = require('bcrypt');
 
 let getUsers = () => new Promise((resolve, reject) => {
-    db.query('SELECT * FROM users', function (err, users, fields) {
+    db.query('SELECT * FROM usersSSC', function (err, users) {
         if (err) {
             reject(err);
         }
@@ -14,7 +14,7 @@ let getUsers = () => new Promise((resolve, reject) => {
 });
 
 let getUser = (id) => new Promise(async (resolve, reject) => {
-    db.query(`SELECT * FROM users WHERE id = ` + parseInt(id), function (err, user, fields) {
+    db.query(`SELECT * FROM usersSSC WHERE id = ` + parseInt(id), function (err, user) {
         if (err) {
             reject(err);
         }
@@ -27,7 +27,7 @@ let getUser = (id) => new Promise(async (resolve, reject) => {
 
 let updateUser = (userData) => new Promise (async (resolve,reject) => {
     //userData.password = await bcrypt.hash(userData.password, 10);
-    let sql = "UPDATE users SET" +
+    let sql = "UPDATE usersSSC SET" +
     "name = " + db.escape(userData.name) +
     ", surname = " + db.escape(userData.surname) +
     ", email = " + db.escape(userData.email) +
@@ -37,7 +37,7 @@ let updateUser = (userData) => new Promise (async (resolve,reject) => {
 
     console.log(sql);
 
-    db.query(sql, function (err, result, fields) {
+    db.query(sql, function (err, result) {
         if (err) {
             reject(err);
         }
@@ -48,7 +48,7 @@ let updateUser = (userData) => new Promise (async (resolve,reject) => {
 
 let addUser = (userData) => new Promise( async (resolve, reject) => {
     userData.password = await bcrypt.hash(userData.password, 10);
-    let sql = `INSERT INTO users (name, surname, hero, email, info, password)
+    let sql = `INSERT INTO usersSSC (name, surname, hero, email, info, password)
 VALUES (` +
         db.escape(userData.name) + ", " +
         db.escape(userData.surname) + ", " +
@@ -57,7 +57,7 @@ VALUES (` +
         db.escape(userData.info) + ", " +
         db.escape(userData.password) + ")";
     console.log(sql);
-    db.query(sql, function (err, result, fields) {
+    db.query(sql, function (err, result) {
         if (err) {
             reject(err);
         }
@@ -67,7 +67,7 @@ VALUES (` +
 });
 
 let deleteUser = (id) => new Promise((resolve, reject) => {
-    let sql = `DELETE FROM users WHERE id = ${db.escape(id)}`;
+    let sql = `DELETE FROM usersSSC WHERE id = ${db.escape(id)}`;
 
     db.query(sql, (err, result) => {
         if (err) {
