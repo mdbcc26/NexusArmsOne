@@ -2,7 +2,7 @@ const db = require('../services/database.js').config;
 const bcrypt = require('bcrypt');
 
 let getUsers = () => new Promise((resolve, reject) => {
-    db.query('SELECT * FROM usersSSC', function (err, users) {
+    db.query('SELECT * FROM Users', function (err, users) {  //Old Table Name: usersSSC
         if (err) {
             reject(err);
         }
@@ -14,7 +14,7 @@ let getUsers = () => new Promise((resolve, reject) => {
 });
 
 let getUser = (id) => new Promise(async (resolve, reject) => {
-    db.query(`SELECT * FROM usersSSC WHERE id = ` + parseInt(id), function (err, user) {
+    db.query(`SELECT * FROM Users WHERE id = ` + parseInt(id), function (err, user) {  //Old Table Name: usersSSC
         if (err) {
             reject(err);
         }
@@ -25,8 +25,26 @@ let getUser = (id) => new Promise(async (resolve, reject) => {
     });
 });
 
-let updateUser = (userData) => new Promise (async (resolve,reject) => {
-    //userData.password = await bcrypt.hash(userData.password, 10);
+let updateUser = (userData) => new Promise(async (resolve, reject) => {
+    userData.password = await bcrypt.hash(userData.password, 10);
+    let sql = "UPDATE Users SET " +
+        "Username = " + db.escape(userData.username) + ", " +
+        "Password = " + db.escape(userData.password) +
+        " WHERE UserID = " + db.escape(userData.id);
+
+    console.log(sql);
+
+    db.query(sql, function (err, result) {
+        if (err) {
+            reject(err);
+        }
+        console.log(result.affectedRows + " rows have been affected.");
+        resolve(userData);
+    });
+});
+
+/*let updateUser = (userData) => new Promise (async (resolve,reject) => {
+    userData.password = await bcrypt.hash(userData.password, 10);
     let sql = "UPDATE usersSSC SET" +
     "name = " + db.escape(userData.name) +
     ", surname = " + db.escape(userData.surname) +
@@ -44,30 +62,35 @@ let updateUser = (userData) => new Promise (async (resolve,reject) => {
         console.log(result.affectedRows + "rows have been affected.")
         resolve(userData)
     })
-})
+})*/
 
-let addUser = (userData) => new Promise( async (resolve, reject) => {
-    userData.password = await bcrypt.hash(userData.password, 10);
-    let sql = `INSERT INTO usersSSC (name, surname, hero, email, info, password)
-VALUES (` +
-        db.escape(userData.name) + ", " +
-        db.escape(userData.surname) + ", " +
-        db.escape(userData.hero) + ", " +
-        db.escape(userData.email) + ", " +
-        db.escape(userData.info) + ", " +
-        db.escape(userData.password) + ")";
-    console.log(sql);
-    db.query(sql, function (err, result) {
-        if (err) {
-            reject(err);
-        }
-        console.log(result.affectedRows + "rows have been affected.")
-        resolve(userData)
-    })
+let addUser = (userData) => new Promise(async (resolve, reject) => {
+    try {
+        // Hash the password before storing it
+        userData.password = await bcrypt.hash(userData.password, 10);
+
+        // Construct the SQL query
+        let sql = `INSERT INTO Users (Username, Password, Admin) VALUES (` +
+            db.escape(userData.username) + ", " +
+            db.escape(userData.password) + ", " +
+            `false)`;
+
+        // Execute the SQL query
+        db.query(sql, function (err, result) {
+            if (err) {
+                reject(err);
+            } else {
+                console.log(result.affectedRows + " rows have been affected.");
+                resolve(userData);
+            }
+        });
+    } catch (error) {
+        reject(error);
+    }
 });
 
 let deleteUser = (id) => new Promise((resolve, reject) => {
-    let sql = `DELETE FROM usersSSC WHERE id = ${db.escape(id)}`;
+    let sql = `DELETE FROM Users WHERE id = ${db.escape(id)}`;
 
     db.query(sql, (err, result) => {
         if (err) {

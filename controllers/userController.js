@@ -15,13 +15,14 @@ function getUser(req, res, next) {
 
 
 function addUser(req, res, next) {
-    const { name, surname, hero, email, info, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!name || !surname || !hero || !email || !info || !password) {
-        return res.status(400).json({ error: 'All fields are required' });
+    if (!username || !password) {
+        console.error('Username and password are required')
+        return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    userModel.addUser({ name, surname, hero, email, info, password })
+    userModel.addUser({ username, password })
         .then(result => {
             res.redirect('/login')
         })

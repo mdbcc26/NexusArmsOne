@@ -16,7 +16,7 @@ function authenticateUser({email, password}, users, res) {
     if (user && checkPassword(password, user.password)) {
         const accessToken = jwt.sign ({id: user.id, name: user.name}, process.env.ACCESS_TOKEN_SECRET);
         res.cookie('accessToken', accessToken);
-        res.redirect('/users/' + user.id);
+        res.redirect('/');  // changed from ('/users/' + user.id) to ('/')
     } else {
         res.send('Username/Password are incorrect or does not exist!')
     }
