@@ -9,10 +9,18 @@ function getUsers(req, res, next) {
 
 function getUser(req, res, next) {
     userModel.getUser(parseInt(req.params.id))
-        .then((user) => {res.render('user', {user})})
-        .catch((err) => {res.status(500); next(err)})
+        .then(user => {
+            if (user) {
+                res.render('user', { user });
+            } else {
+                res.status(404).send('User not found');
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching user:', err);
+            res.status(500).send('Error fetching user');
+        });
 }
-
 
 function addUser(req, res, next) {
     const { username, password } = req.body;
@@ -58,6 +66,18 @@ function authenticateUser(req, res) {
         .catch(err => res.sendStatus(500));
 }
 
+function assignRole(req, res, next) {
+    const { userId, roleId } = req.body;
+
+    userModel.assignRole(userId, roleId)
+        .then(result => {
+            res.send('Role assigned successfully');
+        })
+        .catch(err => {
+            res.status(500).send('Error assigning role');
+            next(err);
+        });
+}
 
 module.exports = {
     getUser,
@@ -66,5 +86,6 @@ module.exports = {
     editUser,
     updateUser,
     deleteUser,
-    authenticateUser
+    authenticateUser,
+    assignRole
 }

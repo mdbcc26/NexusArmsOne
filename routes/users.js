@@ -7,9 +7,10 @@ router.use(authenticationService.authenticateJWT)
 
 router.get('/', userController.getUsers);
 router.get('/:id', userController.getUser);
-
 router.get('/:id/edit', userController.editUser);
+
 router.post('/:id/', userController.updateUser);
 router.delete('/:id/', userController.deleteUser);
+router.post('/assign-role', userController.assignRole);
 
 module.exports = router;

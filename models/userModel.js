@@ -14,6 +14,32 @@ let getUsers = () => new Promise((resolve, reject) => {
 });
 
 let getUser = (id) => new Promise(async (resolve, reject) => {
+    const sql = `
+        SELECT 
+            u.UserID, u.Username, r.Role, 
+            w1.Weapon AS Weapon1, w2.Weapon AS Weapon2, a.Armor
+        FROM Users u
+        LEFT JOIN Roles r ON u.RoleID = r.RoleID
+        LEFT JOIN UserLoadout l ON u.LoadoutID = l.LoadoutID
+        LEFT JOIN Weapons w1 ON l.Weapon1ID = w1.WeaponID
+        LEFT JOIN Weapons w2 ON l.Weapon2ID = w2.WeaponID
+        LEFT JOIN Armor a ON l.ArmorID = a.ArmorID
+        WHERE u.UserID = ?;
+    `;
+
+    db.query(sql, [id], function (err, result) {
+        if (err) {
+            reject(err);
+        } else {
+            if (result.length > 0) {
+                resolve(result[0]);
+            } else {
+                resolve(null);
+            }
+        }
+    });
+});
+/*let getUser = (id) => new Promise(async (resolve, reject) => {
     db.query(`SELECT * FROM Users WHERE id = ` + parseInt(id), function (err, user) {  //Old Table Name: usersSSC
         if (err) {
             reject(err);
@@ -23,7 +49,7 @@ let getUser = (id) => new Promise(async (resolve, reject) => {
             resolve(user[0]);
         }
     });
-});
+});*/
 
 let updateUser = (userData) => new Promise(async (resolve, reject) => {
     userData.password = await bcrypt.hash(userData.password, 10);
@@ -42,27 +68,6 @@ let updateUser = (userData) => new Promise(async (resolve, reject) => {
         resolve(userData);
     });
 });
-
-/*let updateUser = (userData) => new Promise (async (resolve,reject) => {
-    userData.password = await bcrypt.hash(userData.password, 10);
-    let sql = "UPDATE usersSSC SET" +
-    "name = " + db.escape(userData.name) +
-    ", surname = " + db.escape(userData.surname) +
-    ", email = " + db.escape(userData.email) +
-    ", hero = " + db.escape(userData.hero) +
-    ", info = " + db.escape(userData.info) +
-    " WHERE id = " +parseInt(userData.id);
-
-    console.log(sql);
-
-    db.query(sql, function (err, result) {
-        if (err) {
-            reject(err);
-        }
-        console.log(result.affectedRows + "rows have been affected.")
-        resolve(userData)
-    })
-})*/
 
 let addUser = (userData) => new Promise(async (resolve, reject) => {
     try {
@@ -101,10 +106,24 @@ let deleteUser = (id) => new Promise((resolve, reject) => {
     });
 });
 
+let assignRole = (userId, roleId) => new Promise((resolve, reject) => {
+    let sql = `UPDATE Users SET RoleID = ${db.escape(roleId)} WHERE UserID = ${db.escape(userId)}`;
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            reject(err);
+        } else {
+            console.log(result.affectedRows + " row(s) updated with new role.");
+            resolve(result);
+        }
+    });
+});
+
 module.exports = {
     getUsers,
     getUser,
     updateUser,
     addUser,
-    deleteUser
+    deleteUser,
+    assignRole
 }

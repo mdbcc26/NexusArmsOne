@@ -1,76 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>User Page</title>
-        <link rel="stylesheet" href="style.css">
-        <script>
-            function deleteUser(id) {
-                if (!confirm('Are you sure you want to delete this user?')) {
-                    return;
-                }
-
-                fetch(`/users/${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.error) {
-                            alert('Error: ' + data.error);
-                        } else {
-                            alert('User has been deleted.');
-                            window.location.href = '/';
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-        </script>
-    </head>
-    <body>
-    <div class="topnav">
-        <a href="/">Home</a>
-        <a href="/users">Users</a>
-        <a href="/cookies">Cookies</a>
-        <a href="/chat">Chat</a>
-        <a href="/login">Login</a>
-    </div>
-        <div>
-            <% if (typeof user.id !== 'undefined') { %>
-
-                <h1> This is our awesome user </h1>
-
-                <div class="header">
-                    <h2>USER PROFILE</h2>
-                </div>
-
-                <div class="profile">
-
-                    <div class="profileData">
-                        <div class="profileInfo">
-                            <p>name: <%= user.name %></p>
-                        </div>
-
-                        <div class="profileInfo">
-                            <p>surname:<%= user.surname %> </p>
-                        </div>
-                        <div class="profileInfo">
-                            <p>hero-name: <%= user.hero %> </p>
-                        </div>
-                    </div>
-
-                    <div class="imagePlaceholder"></div>
-                    <button onclick="deleteUser(<%= user.id %>)">Delete User</button>
-                    <a href="/users/<%= user.id %>/edit">Edit User</a>
-                </div>
-
-            <% } else { %>
-                <h2> This user does not exist! Try a different id...</h2>
-            <% } %>
+<head>
+    <title>User Details</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="topnav">
+    <a href="/">Home</a>
+    <a href="/users">Users</a>
+    <a href="/cookies">Cookies</a>
+    <a href="/movies">Movies</a>
+    <a href="/chat">Chat</a>
+    <a href="/login">Login</a>
+</div>
+<br>
+<div class="card">
+    <h1>User Details</h1>
+    <p><strong>Username:</strong> <%= user.Username %></p>
+    <p><strong>Role:</strong> <%= user.Role %></p>
+    <div>
+        <h2>Loadout</h2>
+        <div class="loadout">
+            <div><strong>Weapon 1:</strong> <%= user.Weapon1 %></div>
+            <div><strong>Weapon 2:</strong> <%= user.Weapon2 %></div>
+            <div><strong>Armor:</strong> <%= user.Armor %></div>
         </div>
-
-    </body>
+    </div>
+</div>
+<br>
+</body>
 </html>
