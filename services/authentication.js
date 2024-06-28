@@ -31,6 +31,7 @@ function authenticateJWT(req, res, next) {
             }
             console.log(user);
             req.user = user;
+            next();
         })
     } else {res.sendStatus(401);}
 }
