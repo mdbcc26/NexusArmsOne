@@ -4,16 +4,17 @@ const bcrypt = require('bcrypt');
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
 
 async function checkPassword(password, hash) {
+    console.log('Checking password:' + password + ' against hash: ' + hash);
     return await bcrypt.compare(password, hash);
 }
 
 async function authenticateUser({ username, password}, users, res) {
     const user = users.find(u => { return u.Username === username});
-
+    console.log('Authenticating user: ', user);
     if (user && await checkPassword(password, user.Password)) {
         const accessToken = jwt.sign ({ id: user.UserID, name: user.Username}, process.env.ACCESS_TOKEN_SECRET);
         res.cookie('accessToken', accessToken);
-        res.redirect('/');  // changed from ('/users/' + user.id) to ('/')
+        res.redirect('/users/' + user.UserID);
     } else {
         res.status(401).send('Username/Password are incorrect or does not exist!')
     }

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 let getUsers = () => new Promise((resolve, reject) => {
     const sql = `
         SELECT 
-            u.UserID, u.Username, r.Role, 
+            u.UserID, u.Username, u.Password, r.Role, 
             w1.Weapon AS Weapon1, w2.Weapon AS Weapon2, a.Armor
         FROM Users u
         LEFT JOIN Roles r ON u.RoleID = r.RoleID
