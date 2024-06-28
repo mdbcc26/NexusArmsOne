@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>All Users Page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>All Users</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .user-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .user-details {
+            flex: 1;
+        }
+        .user-loadout {
+            flex: 2;
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
 </head>
 <body>
 <div class="topnav">
     <a href="/">Home</a>
     <a class="active" href="/users">Users</a>
     <a href="/cookies">Cookies</a>
+    <a href="/chat">Chat</a>
+    <a href="/login">Login</a>
 </div>
 <br>
 <div class="card">
-    <h1>This is our users page</h1>
-    <% for (var i = 0; i < users.length; i++) { %>
+    <h1>All Users</h1>
+    <% users.forEach(user => { %>
         <div class="user-card">
-            <a href="/users/<%= users[i].UserID %>"> <%= users[i].Username %> </a>
-            <p>Role ID: <%= users[i].RoleID %></p>
-            <p>Loadout ID: <%= users[i].LoadoutID %></p>
-            <p>Admin: <%= users[i].Admin ? 'Yes' : 'No' %></p>
+            <div class="user-details">
+                <p><strong>Username:</strong> <%= user.Username %></p>
+                <p><strong>Role:</strong> <%= user.Role %></p>
+            </div>
+            <div class="user-loadout">
+                <div><strong>Weapon 1:</strong> <%= user.Weapon1 %></div>
+                <div><strong>Weapon 2:</strong> <%= user.Weapon2 %></div>
+                <div><strong>Armor:</strong> <%= user.Armor %></div>
+            </div>
         </div>
-        <br>
-    <% } %>
+    <% }); %>
 </div>
 <br>
 </body>

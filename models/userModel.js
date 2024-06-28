@@ -2,6 +2,27 @@ const db = require('../services/database.js').config;
 const bcrypt = require('bcrypt');
 
 let getUsers = () => new Promise((resolve, reject) => {
+    const sql = `
+        SELECT 
+            u.UserID, u.Username, r.Role, 
+            w1.Weapon AS Weapon1, w2.Weapon AS Weapon2, a.Armor
+        FROM Users u
+        LEFT JOIN Roles r ON u.RoleID = r.RoleID
+        LEFT JOIN UserLoadout l ON u.LoadoutID = l.LoadoutID
+        LEFT JOIN Weapons w1 ON l.Weapon1ID = w1.WeaponID
+        LEFT JOIN Weapons w2 ON l.Weapon2ID = w2.WeaponID
+        LEFT JOIN Armor a ON l.ArmorID = a.ArmorID;
+    `;
+
+    db.query(sql, function (err, users) {
+        if (err) {
+            reject(err);
+        } else {
+            resolve(users);
+        }
+    });
+});
+/*let getUsers = () => new Promise((resolve, reject) => {
     db.query('SELECT * FROM Users', function (err, users) {  //Old Table Name: usersSSC
         if (err) {
             reject(err);
@@ -11,7 +32,7 @@ let getUsers = () => new Promise((resolve, reject) => {
             resolve(users);
         }
     });
-});
+});*/
 
 let getUser = (id) => new Promise(async (resolve, reject) => {
     const sql = `

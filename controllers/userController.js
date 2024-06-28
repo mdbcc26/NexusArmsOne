@@ -1,11 +1,21 @@
 const userModel = require('../models/userModel.js');
 const authentication = require('../services/authentication.js');
 
-function getUsers(req, res, next) {
+function getUsers(req, res) {
+    userModel.getUsers()
+        .then(users => {
+            res.render('users', { users });
+        })
+        .catch(err => {
+            console.error('Error fetching users:', err);
+            res.status(500).send('Error fetching users');
+        });
+}
+/*function getUsers(req, res, next) {
     userModel.getUsers()
         .then((users) => {res.render('users', {users})})
         .catch((err) => {res.sendStatus(500)})
-}
+}*/
 
 function getUser(req, res, next) {
     userModel.getUser(parseInt(req.params.id))
