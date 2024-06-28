@@ -6,13 +6,27 @@
 </head>
 <body>
 
-<h1>Login</h1>
-<form action="/login" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-    <button type="submit">Login</button>
+<div class="topnav">
+    <a href="/">Home</a>
+    <a href="/users">Users</a>
+    <a href="/chat">Chat</a>
+    <a href="/login">Login</a>
+    <a href="/cookies">Cookies</a>
+</div>
+
+<br>
+
+<h1 class="card">Login</h1>
+<br>
+<form class="card column" action="/login" method="post">
+    <div class="fields">
+    <label for="username">Username:</label><br>
+    <input class="input" type="text" id="username" name="username" required></div>
+
+    <div class="fields">
+    <label for="password">Password:</label><br>
+    <input class="input" type="password" id="password" name="password" required>  </div>
+    <button class="button-28" type="submit">Login</button>
 </form>
 
 </body>

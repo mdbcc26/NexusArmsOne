@@ -43,7 +43,6 @@
 <body>
 
 
-
 <div class="topnav">
     <a href="/">Home</a>
     <a href="/users">Users</a>
@@ -52,13 +51,20 @@
     <a href="/cookies">Cookies</a>
 </div>
 
+<br>
 
-
-    <div id="messages"></div>
-    <input id="text" type="text">
-    <button onclick="sendMyMessage()">Send</button>
-    <input id="room" placeholder="room name" type="text"/>
-    <button onclick="join()">Join room</button>
+    <div id="messages" class="card"></div>
+<br/>
+<div class="card column">
+    <div class="fields">
+    <input id="text" type="text" class="input" placeholder="type a message!">
+    <button class="button-28" onclick="sendMyMessage()">Send</button>
+    </div>
+    <div class="fields">
+    <input class="input" id="room" placeholder="room name" type="text"/>
+    <button class="button-28" onclick="join()">Join room</button>
+    </div>
+</div>
 </body>
 
 </html>
