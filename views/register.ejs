@@ -1,26 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Register</h1>
-    <form>
-        <span>Name</span>
-        <input type="text" id="name" required><br>
-        <span>Surname</span>
-        <input type="text" id="surname" required><br>
-        <span>Hero</span>
-        <input type="text" id="hero" required><br>
-        <span>E-Mail</span>
-        <input type="text" id="email" required><br>
-        <span>Info</span>
-        <input type="text" id="info">
-
-    </form>
+<h1>Register</h1>
+<form action="/register" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br>
+    <label for="password">Password:</label>
+    <input type="text" id="password" name="password" required><br>
+    <button type="submit">Register</button>
+</form>
 </body>
 </html>

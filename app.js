@@ -11,17 +11,16 @@ const morgan = require('morgan');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended : true}))
+app.use(bodyParser.urlencoded({ extended : true }))
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended: true}));
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const moviesRouter  = require('./routes/movies.js');
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, './logs/requests.log'), { flags: 'a' })
 
@@ -30,7 +29,6 @@ app.use(morgan('short'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/movies', moviesRouter);
 
 app.use(express.static('public'));
 

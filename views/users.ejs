@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>All Users Page</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="topnav">
-            <a href="/">Home</a>
-            <a class="active" href="/users">Users</a>
-            <a href="/chat">Chat</a>
-            <a href="/login">Login</a>
-            <a href="/cookies">Cookies</a>
+<head>
+    <title>All Users Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topnav">
+    <a href="/">Home</a>
+    <a class="active" href="/users">Users</a>
+    <a href="/cookies">Cookies</a>
+</div>
+<br>
+<div class="card">
+    <h1>This is our users page</h1>
+    <% for (var i = 0; i < users.length; i++) { %>
+        <div class="user-card">
+            <a href="/users/<%= users[i].UserID %>"> <%= users[i].Username %> </a>
+            <p>Role ID: <%= users[i].RoleID %></p>
+            <p>Loadout ID: <%= users[i].LoadoutID %></p>
+            <p>Admin: <%= users[i].Admin ? 'Yes' : 'No' %></p>
         </div>
         <br>
-        <div class="card">
-            <h1>This is our users page</h1>
-            <% for (var i = 0; i < users.length; i++) { %>
-                <a href="/users/<%= users[i].id %>"> <%= users[i].name %> <%= users[i].surname %> </a>
-                <p>- <%= users[i].hero %></p>
-                <p>- <%= users[i].email %></p>
-                <p>- <%= users[i].info %></p>
-                <br>
-            <% } %>
-        </div>
-        <br>
-    </body>
+    <% } %>
+</div>
+<br>
+</body>
 </html>

@@ -11,8 +11,18 @@
             <a href="/chat">Chat</a>
             <a href="/login">Login</a>
             <a href="/cookies">Cookies</a>
+            <a href="/chat">Chat</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
         </div>
         <br>
+
+        <% if (typeof confirmationMessage !== 'undefined' && confirmationMessage !== '') { %>
+            <div class="confirmation-message">
+                <%= confirmationMessage %>
+            </div>
+        <% } %>
+
         <div class="card">
             <h1>Welcome to <br> <%= title %>  </h1>
             <p>We are group 15 of the class server side coding.</p>
@@ -21,6 +31,7 @@
             <p>Matt</p>
             <p>Matt</p>
         </div>
+        <a href="/logout">Logout</a>
 
         <button class="btn">Login</button>
 

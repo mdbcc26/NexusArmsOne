@@ -1,11 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit User</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <form action="/users/<%= user.id %>" method="post">
-    <% Object.keys(user).forEach(function (key) { %>
-
+    <% Object.keys(user).forEach(function (key){ %>
         <%= key %>: <input type="text"
-                            name="<%= key %>"
-                            value="<%= user[key] %>">
+                           name="<%= key %>"
+                           value="<%= user[key] %>">
     <% }) %>
-
-    <input type="submit" value="OK">
-
+    <input type="submit" value="accept">
 </form>
+</html>
+
