@@ -55,7 +55,7 @@ function authenticateUser(req, res) {
         .then(users => {
             authentication.authenticateUser(req.body, users, res);
         })
-        .catch(err => res.sendStatus(500))
+        .catch(err => res.sendStatus(500));
 }
 
 
