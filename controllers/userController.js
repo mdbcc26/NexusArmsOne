@@ -40,6 +40,7 @@ function addUser(req, res, next) {
 
     userModel.addUser({ username, password })
         .then(result => {
+            console.log('addUser result', result);
             res.redirect('/login')
         })
         .catch(err => next(err));
@@ -49,31 +50,46 @@ function addUser(req, res, next) {
 function editUser(req,res) {
     userModel.getUser(req.params.id)
         .then(user => res.render('editUser', {user}))
-        .catch(err => res.sendStatus(500))
+        .catch(err => {
+            console.log('editUser error', err);
+            res.sendStatus(500);
+        })
 }
 
 //Update the user in the database and render the user view
 function updateUser(req,res) {
     userModel.updateUser(req.body)
         .then(user => res.render('user', {user}))
-        .catch(err => res.sendStatus(500))
+        .catch(err => {
+            console.log('updateUser error', err);
+            res.sendStatus(500);
+        });
 }
 
 //Delete the user from the database and redirect to the home page
 function deleteUser(req,res) {
+    console.log('deleteUser', req.params.id);
     userModel.deleteUser(req.params.id)
         .then(() => {
+            console.log('deleteUser success');
             res.redirect('/');
         })
-        .catch(err => res.sendStatus(500));
+        .catch(err => {
+            console.log('deleteUser error', err);
+            res.sendStatus(500);
+        });
 }
 
+//Authenticate the user and redirect to the home page
 function authenticateUser(req, res) {
     userModel.getUsers()
         .then(users => {
             authentication.authenticateUser(req.body, users, res);
         })
-        .catch(err => res.sendStatus(500));
+        .catch(err => {
+            console.error('authenticateUser error', err);
+            res.sendStatus(500)
+        });
 }
 
 module.exports = {
