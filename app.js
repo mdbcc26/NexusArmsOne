@@ -8,7 +8,6 @@ const morgan = require('morgan');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : true }))
@@ -35,7 +34,6 @@ function errorHandler(err, req, res, next) {
 app.use(errorHandler);
 
 app.listen(port, () => {
-    console.log(`Example app listening at
-http://localhost:${port}`);
+    console.log(`Example app listening at http://localhost:${port}`);
 });
 

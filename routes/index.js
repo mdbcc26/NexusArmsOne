@@ -6,16 +6,6 @@ router.get('/', (req,res) => {
     res.render('index', {title: 'the NIMM Project'});
 });
 
-router.get('/cookies', (req,res) => {
-    let counter = req.cookies['visitCounter'];
-    console.log('Current counter value: ', counter)
-    if(isNaN(counter)) counter = 0;
-    counter++;
-    console.log('New counter value: ', counter)
-    res.cookie('visitCounter', counter, {maxAge: 2*60*60*1000})
-    res.send('Cookie was set to ' + counter)
-})
-
 router.get('/chat', (req,res) =>{
     res.render('chat')
 });
@@ -42,3 +32,13 @@ router.route('/register')
     });
 
 module.exports = router;
+
+/*router.get('/cookies', (req,res) => {
+    let counter = req.cookies['visitCounter'];
+    console.log('Current counter value: ', counter)
+    if(isNaN(counter)) counter = 0;
+    counter++;
+    console.log('New counter value: ', counter)
+    res.cookie('visitCounter', counter, {maxAge: 2*60*60*1000})
+    res.send('Cookie was set to ' + counter)
+})*/
