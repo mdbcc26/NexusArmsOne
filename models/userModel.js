@@ -116,8 +116,9 @@ let addUser = (userData) => new Promise(async (resolve, reject) => {
 });
 
 let deleteUser = (id) => new Promise((resolve, reject) => {
-    let sql = `DELETE FROM Users WHERE id = ${db.escape(id)}`;
-
+    console.log("Deleting user with ID: " + id);
+    let sql = `DELETE FROM Users WHERE UserID = ${db.escape(id)}`;
+    console.log(sql);
     db.query(sql, (err, result) => {
         if (err) {
             return reject(err);
