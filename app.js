@@ -4,6 +4,7 @@ const port = 3000;
 const path = require('path');
 const fs = require('fs');
 const morgan = require('morgan');
+const ws = require('./services/websockets.js');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -28,7 +29,7 @@ app.use('/users', usersRouter);
 
 app.use(express.static('public'));
 
-function errorHandler(err, req, res, next) {
+function errorHandler(err, req, res) {
     res.render('error', {error: err});
 }
 app.use(errorHandler);

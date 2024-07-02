@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController.js');
+const authenticationService = require('../services/authentication.js');
 
 router.get('/', (req,res) => {
     res.render('index', {title: 'the NIMM Project'});
-});
-
-router.get('/chat', (req,res) =>{
-    res.render('chat')
 });
 
 router.route('/login')
@@ -30,6 +27,9 @@ router.route('/register')
     .post((req, res) => {
         userController.addUser(req, res);
     });
+router.get('/chat',authenticationService.authenticateJWT, (req,res) =>{
+    res.render('chat')
+});
 
 module.exports = router;
 
