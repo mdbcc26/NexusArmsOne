@@ -1,10 +1,18 @@
 body {
     margin: 0;
-    font-family: 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Courier New', Arial, sans-serif;
+    background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e4316a93890387.5e70ade47b737.gif");
+    background-size: cover;
+    color: #adb7bd;
 }
 
+/*
+https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e4316a93890387.5e70ade47b737.gif
+
+ */
+
 h1 {
-    color: #c8c8c8;
+    color: #ffffff;
     font-size: 54px; font-weight: 300;
     line-height: 58px;
     margin: 0 0 40px;
@@ -29,22 +37,105 @@ a:hover {
     text-decoration: underline;
 }
 
-/*==================================================================================*/
-
 .card {
     margin: auto;
     width: 50%;
-    height: 75%;
-    background-color: #1a1a1a;
-    border-radius: 20px;
+    height: 50%;
+    background-color: black;
+    border-radius: 0px;
     transition: all .2s;
     padding: 1rem;
+    border: green solid 3px;
 }
 
-/*==================================================================================*/
+.card.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.fields {
+    margin: auto;
+    width: 80%;
+    height: 80%;
+    background-color: black;
+    border-radius: 0px;
+    transition: all .2s;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.input[type="text"],[type="password"] {
+    width: 80%;
+    padding: 12px 20px;
+    margin: auto;
+    box-sizing: border-box;
+    border: 2px solid green;
+    border-radius: 0px;
+    background-color: black;
+    color: #adb7bd;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: "Courier New";
+}
+
+.button-28 {
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid green;
+    border-radius: 0px;
+    box-sizing: border-box;
+    color: #adb7bd;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Courier New",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 10px;
+    min-height: 30px;
+    min-width: 0;
+    outline: none;
+    padding: 16px 24px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 70%;
+    will-change: transform;
+}
+
+.button-28:disabled {
+    pointer-events: none;
+}
+
+.button-28:hover {
+    color: green;
+    background-color: #01cb01;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+
+.button-28:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
 
 .topnav {
-    background-color: #333;
+    background-color: black;
     overflow: hidden;
 }
 .topnav a {
@@ -56,7 +147,7 @@ a:hover {
     font-size: 17px;
 }
 .topnav a:hover {
-    background-color: #ddd;
+    background-color: green;
     color: black;
 }
 .topnav a.active {
@@ -64,3 +155,12 @@ a:hover {
     color: white;
 }
 
+.card li {
+    color: white;
+}
+
+.btn {
+    color: green;
+    padding: 20px;
+    font-size: large;
+}
