@@ -1,16 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Edit User</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
-<form action="/users/<%= user.id %>" method="post">
-    <% Object.keys(user).forEach(function (key){ %>
-        <%= key %>: <input type="text"
-                           name="<%= key %>"
-                           value="<%= user[key] %>">
-    <% }) %>
-    <input type="submit" value="accept">
-</form>
-</html>
+<body>
+<div class="topnav">
+    <a href="/">Home</a>
+    <a href="/users">Users</a>
+    <a href="/chat">Chat</a>
+</div>
+<br>
+<div class="card">
+    <h1>Edit User</h1>
+    <form action="/users/<%= user.UserID %>/update" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="<%= user.Username %>" required><br>
 
+        <label for="password">Password (optional):</label>
+        <input type="password" id="password" name="password"><br>
+
+        <label for="role">Role:</label>
+        <select id="role" name="role">
+            <% roles.forEach(role => { %>
+                <option value="<%= role.RoleID %>" <%= role.RoleID === user.RoleID ? 'selected' : '' %>><%= role.Role %></option>
+            <% }) %>
+        </select><br>
+
+        <label for="weapon1">Weapon 1:</label>
+        <select id="weapon1" name="weapon1">
+            <% weapons.forEach(weapon => { %>
+                <option value="<%= weapon.WeaponID %>" <%= weapon.WeaponID === user.Weapon1ID ? 'selected' : '' %>><%= weapon.Weapon %></option>
+            <% }) %>
+        </select><br>
+
+        <label for="weapon2">Weapon 2:</label>
+        <select id="weapon2" name="weapon2">
+            <% weapons.forEach(weapon => { %>
+                <option value="<%= weapon.WeaponID %>" <%= weapon.WeaponID === user.Weapon2ID ? 'selected' : '' %>><%= weapon.Weapon %></option>
+            <% }) %>
+        </select><br>
+
+        <label for="armor">Armor:</label>
+        <select id="armor" name="armor">
+            <% armors.forEach(armor => { %>
+                <option value="<%= armor.ArmorID %>" <%= armor.ArmorID === user.ArmorID ? 'selected' : '' %>><%= armor.Armor %></option>
+            <% }) %>
+        </select><br>
+
+        <button type="submit">Update User</button>
+    </form>
+</div>
+</body>
+</html>
