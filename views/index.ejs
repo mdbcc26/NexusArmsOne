@@ -9,16 +9,10 @@
             <a class="active" href="/">Home</a>
             <a href="/users">Users</a>
             <a href="/chat">Chat</a>
-            <a href="/login">Login</a>
+            <a id="loginLink" href="/login">Login</a>
+            <a id="logoutLink" href="/logout" style="display: none;">Logout</a>
             <a href="/register">Register</a>
         </div>
-        <br>
-
-        <% if (typeof confirmationMessage !== 'undefined' && confirmationMessage !== '') { %>
-            <div class="confirmation-message">
-                <%= confirmationMessage %>
-            </div>
-        <% } %>
 
         <div class="card">
             <h1>Welcome to <br> <%= title %>  </h1>
@@ -28,8 +22,27 @@
             <p>Matt</p>
             <p>Matt</p>
         </div>
-        <a href="/logout">Logout</a>
 
+        <script>
+            // Function to get a cookie value by name
+            function getCookie(name) {
+                let value = `; ${document.cookie}`;
+                let parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
 
+            // Check for accessToken cookie
+            const accessToken = getCookie('accessToken');
+            const loginLink = document.getElementById('loginLink');
+            const logoutLink = document.getElementById('logoutLink');
+
+            if (accessToken) {
+                loginLink.style.display = 'none';
+                logoutLink.style.display = 'inline';
+            } else {
+                loginLink.style.display = 'inline';
+                logoutLink.style.display = 'none';
+            }
+        </script>
         </body>
 </html>
