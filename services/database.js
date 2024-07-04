@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mysql = require('mysql2');
-const { Sequelize } = require("Sequelize");
+const { Sequelize } = require("sequelize");
 
 const config = mysql.createConnection({
     host: "atp.fhstp.ac.at",
