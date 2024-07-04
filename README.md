@@ -8,3 +8,5 @@ Mate Brader, Igor Bodrov, Matt Dalton, Niklas Reisinger.
 3. Run `npm start` to start the project. (Alternatively you can run `node app.js` to start the project)
 4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
 
+Creat you own account and login. Or if you are lazy, here are some accounts you can use:
+- Username: `BeerKing`, Password: `beer`
