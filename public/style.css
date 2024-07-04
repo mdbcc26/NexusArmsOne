@@ -39,8 +39,8 @@ a:hover {
 
 .card {
     margin: auto;
-    width: 50%;
-    height: 50%;
+    width: 1000px;
+    height: 500px;
     background-color: black;
     border-radius: 0px;
     transition: all .2s;
@@ -76,8 +76,8 @@ a:hover {
     align-items: center;
 }
 
-.input[type="text"],[type="password"] {
-    width: 80%;
+input {
+    width: 300px;
     padding: 12px 20px;
     margin: auto;
     box-sizing: border-box;
@@ -90,9 +90,10 @@ a:hover {
     font-family: "Courier New";
 }
 
+
 .button-28 {
     appearance: none;
-    background-color: transparent;
+    background-color: black;
     border: 2px solid green;
     border-radius: 0px;
     box-sizing: border-box;
@@ -104,17 +105,16 @@ a:hover {
     font-weight: 600;
     line-height: normal;
     margin: 10px;
-    min-height: 30px;
-    min-width: 0;
+    padding: 12px 24px;
+    width: fit-content;
+    height: fit-content;
     outline: none;
-    padding: 16px 24px;
     text-align: center;
     text-decoration: none;
     transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    width: 70%;
     will-change: transform;
 }
 
@@ -123,7 +123,7 @@ a:hover {
 }
 
 .button-28:hover {
-    color: green;
+    color: white;
     background-color: #01cb01;
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     transform: translateY(-2px);
@@ -151,7 +151,7 @@ a:hover {
     color: black;
 }
 .topnav a.active {
-    background-color: #04AA6D;
+    background-color: green;
     color: white;
 }
 
@@ -163,4 +163,66 @@ a:hover {
     color: green;
     padding: 20px;
     font-size: large;
+}
+
+label{
+    background: green;
+    color: white;
+    padding: 5px;
+
+}
+
+.form{
+    margin: auto;
+    width: 30%;
+}
+
+select{
+    background: black;
+    color: white;
+    font-family: "Courier New", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    border: solid green 2px;
+    padding: 2px;
+}
+
+.loadout{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat{
+    margin-top: 30px;
+    padding-left: 250px;
+}
+
+
+ .user-card {
+     border: 1px solid #ddd;
+     padding: 10px;
+     margin: 10px 0;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+.user-details {
+    flex: 1;
+}
+.user-loadout {
+    flex: 2;
+    display: flex;
+    justify-content: space-around;
+}
+
+.messages {
+    text-align: left;
+    background: rgb(0, 0, 0);
+    max-width: 886px;
+    border: #01cb01 2px solid;
+}
+.messages p {
+    color: #459b45;
+    font-weight: bolder;
+    max-width: 850px;
 }

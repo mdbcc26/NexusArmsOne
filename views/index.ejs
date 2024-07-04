@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <title>Home</title>
+        <link rel="icon" href="/public/favicon.png" />
         <link rel="stylesheet" href="style.css">
     </head>
         <body>
@@ -9,18 +10,18 @@
             <a class="active" href="/">Home</a>
             <a href="/users">Users</a>
             <a href="/chat">Chat</a>
-            <a id="loginLink" href="/login">Login</a>
-            <a id="logoutLink" href="/logout" style="display: none;">Logout</a>
-            <a href="/register">Register</a>
+            <a id="registerLink" href="/register">Register</a>
+            <a id="loginLink" href="/login" style="float: right">Login</a>
+            <a id="logoutLink" href="/logout" style="display: none; float: right ">Logout</a>
         </div>
 
         <div class="card">
             <h1>Welcome to <br> <%= title %>  </h1>
-            <p>We are group 15 of the class server side coding.</p>
-            <p>Niklas</p>
-            <p>Igor</p>
-            <p>Matt</p>
-            <p>Matt</p>
+            <p style="text-align: center; font-size: larger">We are group 15 of the class server side coding. <br>
+            Niklas<br>
+            Igor<br>
+            Matt<br>
+            Matt</p>
         </div>
 
         <script>

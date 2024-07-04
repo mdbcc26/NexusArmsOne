@@ -192,7 +192,6 @@ let deleteUser = (id) => new Promise((resolve, reject) => {
         if (err) {
             return reject(err);
         }
-//      console.log(result.affectedRows + " rows have been deleted.");
         console.log(`${result.affectedRows} user(s) deleted.`);
         resolve(result)
     });

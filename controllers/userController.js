@@ -89,7 +89,6 @@ function deleteUser(req,res) {
         .then(() => {
             console.log('User deleted successfully');
             res.json({ message: 'User deleted successfully' });
-            //res.redirect('/users'); //Redirect to users list after deleting
         })
         .catch(err => {
             console.log('Error deleting user:', err);
