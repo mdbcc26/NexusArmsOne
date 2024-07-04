@@ -193,5 +193,36 @@ select{
 }
 
 .chat{
-    
+    margin-top: 30px;
+    padding-left: 250px;
+}
+
+
+ .user-card {
+     border: 1px solid #ddd;
+     padding: 10px;
+     margin: 10px 0;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+.user-details {
+    flex: 1;
+}
+.user-loadout {
+    flex: 2;
+    display: flex;
+    justify-content: space-around;
+}
+
+.messages {
+    text-align: left;
+    background: rgb(0, 0, 0);
+    max-width: 886px;
+    border: #01cb01 2px solid;
+}
+.messages p {
+    color: #459b45;
+    font-weight: bolder;
+    max-width: 850px;
 }
