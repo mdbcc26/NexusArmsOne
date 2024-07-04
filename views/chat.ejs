@@ -57,14 +57,17 @@
     <a href="/">Home</a>
     <a href="/users">Users</a>
     <a class="active" href="/chat">Chat</a>
+    <a href="/logout" style="float: right">Logout</a>
 </div>
 
 <div class="chat">
     <div class="messages" id="messages"></div>
-    <input id="text" type="text" placeholder="Message">
-    <button class="button-28" onclick="sendMyMessage()">Send</button>
-    <input id="room" placeholder="Name of Room">
-    <button class="button-28" onclick="join()">Join room</button>
+    <div>
+        <input id="text" type="text" placeholder="Message">
+        <button class="button-28" onclick="sendMyMessage()">Send</button>
+        <input id="room" placeholder="Name of Room">
+        <button class="button-28" onclick="join()">Join room</button>
+    </div>
 </div>
 </body>
 </html>
