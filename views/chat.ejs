@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Chat room</title>
+    <title>Chat Room</title>
     <link rel="stylesheet" href="style.css">
     <script>
         const ws = new WebSocket('ws://localhost:8080');
 
         ws.onopen = function () {
-            console.log('websocket is connected ...')
+            console.log('websocket is connected...');
             ws.send(JSON.stringify({
                 room: "",
-                data: "connected",
+                message: "Connected!"
             }));
         }
 
@@ -20,41 +20,48 @@
         }
 
         function sendMyMessage() {
-            let room = document.getElementById("room").value;
-            let text = document.getElementById("text").value;
+            let room = document.getElementById('room').value;
+            let text = document.getElementById('text').value;
             let message = {
                 room: room,
                 message: text,
             }
             ws.send(JSON.stringify(message));
+            document.getElementById('text').value = ''; //Clear input after sending message
         }
 
-        function addTextMessage(message){
-            let tag = document.createElement("p");
+        function addTextMessage(message) {
+            let tag = document.createElement('p');
             tag.innerHTML = message.message;
             let element = document.getElementById("messages");
             element.appendChild(tag);
         }
 
         function join() {
-            let room = document.getElementById("room").value;
+            let room = document.getElementById('room').value;
             ws.send(JSON.stringify({joinRoom: room}));
+            console.log('Joining room: ' + room);
+            displayJoinedRoomMessage(room);
         }
 
+        function displayJoinedRoomMessage(room) {
+            let tag = document.createElement('p');
+            tag.innerHTML = 'Joined ' + room;
+            let element = document.getElementById("messages");
+            element.appendChild(tag);
+        }
     </script>
 </head>
 <body>
 <div class="topnav">
-    <a class="active" href="/">Home</a>
+    <a href="/">Home</a>
     <a href="/users">Users</a>
-    <a href="/chat">Chat</a>
-    <a href="/login">Login</a>
-    <a href="/cookies">Cookies</a>
+    <a class="active" href="/chat">Chat</a>
 </div>
     <div id="messages"></div>
-    <input id="text" type="text">
-    <button onclick="sendMyMessage()">Send</button>
-    <input id="room" placeholder="test" type="text"/>
-    <button onclick="join()">Join room</button>
+    <input id="text" type="text" placeholder="Message">
+    <button class="button-28" onclick="sendMyMessage()">Send</button>
+    <input id="room" placeholder="Name of Room">
+    <button class="button-28" onclick="join()">Join room</button>
 </body>
 </html>

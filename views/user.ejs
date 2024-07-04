@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>User Page</title>
+    <title>User Details</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -9,22 +9,23 @@
     <a href="/">Home</a>
     <a href="/users">Users</a>
     <a href="/chat">Chat</a>
-    <a href="/login">Login</a>
-    <a href="/cookies">Cookies</a>
 </div>
 <br>
-<h1>Displays a user's page</h1>
 <div class="card">
-    <h1><%= user.name %> <%= user.surname %></h1>
-    <ul>
-        <li>Id: <%=user.id%></li>
-        <li>Hero: <%= user.hero %></li>
-        <li>Email: <%=user.email%></li>
-        <li>Info: <%=user.info%></li>
-        <li>Password: <%=user.password%> </li>
-    </ul>
-    <button>DELETE</button>
+    <h1>User Details</h1>
+    <p><strong>Username:</strong> <%= user.Username %></p>
+    <p><strong>Role:</strong> <%= user.Role %></p>
+    <div>
+        <h2>Loadout</h2>
+        <div class="loadout">
+            <div><strong>Weapon 1:</strong> <%= user.Weapon1 %></div>
+            <div><strong>Weapon 2:</strong> <%= user.Weapon2 %></div>
+            <div><strong>Armor:</strong> <%= user.Armor %></div>
+        </div>
+    </div>
+    <div>
+        <a href="/users/<%= user.UserID %>/edit">Edit User</a>
+    </div>
 </div>
-
 </body>
 </html>

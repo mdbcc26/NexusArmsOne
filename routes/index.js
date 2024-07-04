@@ -1,79 +1,44 @@
 const express = require('express');
 const router = express.Router();
-const authenticationService = require('../services/authentication');
-const userModel = require('../models/userModel')
+const userController = require('../controllers/userController.js');
+const authenticationService = require('../services/authentication.js');
 
 router.get('/', (req,res) => {
     res.render('index', {title: 'the NIMM Project'});
-
-    //res.send('Hello from the index router!')
 });
 
-router.get('/chat', (req, res) => {
-    res.render('chat')
-})
-
-const cbC1 = (req, res, next) => {
-    console.log('this is cbC1');
-    next();
-};
-const cbC2 = (req, res, next) => {
-    console.log('this is cbC2');
-    next();
-};
-const cbC3 = (req, res) => {
-    res.send('this is cbC3');
-};
-router.get('/example/c', [cbC1, cbC2, cbC3]);
-
-router.route('/tony/picture')
+router.route('/login')
     .get((req, res) => {
-        res.send('GET request for /tony/picture')
+        res.render('login');
     })
     .post((req, res) => {
-        res.send('POST request for /tony/picture')
+        userController.authenticateUser(req, res);
+    });
+
+router.get ('/logout', (req, res) =>{
+    res.cookie('accessToken', '', {maxAge: 0});
+    res.redirect('/')
+});
+
+router.route('/register')
+    .get((req, res) => {
+        res.render('register');
     })
+    .post((req, res) => {
+        userController.addUser(req, res);
+    });
+router.get('/chat',authenticationService.authenticateJWT, (req,res) =>{
+    res.render('chat')
+});
 
-router.post('/', (req, res) => {
-    console.log(req.body);
-    res.send('received a POST request')
-})
+module.exports = router;
 
-router.get('/cookies', (req,res) => {
-    //visit counter and read cookies
+/*router.get('/cookies', (req,res) => {
     let counter = req.cookies['visitCounter'];
     console.log('Current counter value: ', counter)
     if(isNaN(counter)) counter = 0;
     counter++;
     console.log('New counter value: ', counter)
-    //set cookies
     res.cookie('visitCounter', counter, {maxAge: 2*60*60*1000})
     res.send('Cookie was set to ' + counter)
-
-    /*read cookies
-    console.log(req.cookies);
-    //set cookies
-    res.cookie('myCookie', 'Hello World')
-    res.send('Cookie has been set')
-    */
-})
-
-router.route('/login')
-    .get((req, res, next) => {
-        res.render('login');
-    })
-    .post((req, res, next) => {
-        userModel.getUsers()
-            .then((users) => {
-                authenticationService.authenticateUser(req.body, users, res)
-            })
-            .catch((err) => res.sendStatus(500))
-    });
-
-router.get('/logout', (req, res) => {
-    res.cookies('accessToken','', {maxAge: 0});
-    res.redirect('/');
-
-});
-
-module.exports = router;
+})*/

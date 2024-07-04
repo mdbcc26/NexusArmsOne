@@ -1,49 +1,45 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const db = require('./services/database.js');
-const ws = require('./services/websockets')
-
 const path = require('path');
-const ejs = require('ejs');
-
 const fs = require('fs');
 const morgan = require('morgan');
+const ws = require('./services/websockets.js');
 
+//Set up view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended : true}))
+app.use(bodyParser.urlencoded({ extended : true }))
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const moviesRouter = require('./routes/movies');
 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, './logs/requests.log'), { flags: 'a' })
+//Set up logging
+const accessLogStream = fs.createWriteStream(path.join(__dirname, './logs/requests.log'), {flags: 'a'});
+app.use(morgan('combined', {stream: accessLogStream}));
+app.use(morgan('short'));
 
-app.use(morgan('combined', { stream: accessLogStream }))
-
-app.use(morgan('short'))
-
+//Use routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/movies', moviesRouter);
 
+//Serve static files
+app.use(express.static('public'));
+
+//Error handling middleware
 function errorHandler(err, req, res, next) {
-    res.render('error', { error: err });
+    console.error(err.stack);
+    res.status(500).render('error', {error: err});
 }
 app.use(errorHandler);
 
-app.use(express.static('public'));
-
 app.listen(port, () => {
-    console.log(`Example app listening at
-http://localhost:${port}`);
+    console.log(`Example app listening at http://localhost:${port}`);
 });
 
