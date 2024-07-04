@@ -16,15 +16,15 @@
     <p><strong>Username:</strong> <%= user.Username %></p>
     <p><strong>Role:</strong> <%= user.Role %></p>
     <div>
-        <h2>Loadout</h2>
         <div class="loadout">
-            <div><strong>Weapon 1:</strong> <%= user.Weapon1 %></div>
-            <div><strong>Weapon 2:</strong> <%= user.Weapon2 %></div>
-            <div><strong>Armor:</strong> <%= user.Armor %></div>
+            <h2>Loadout</h2>
+            <div><strong>Weapon 1:</strong> <%= user.Weapon1 %></div><br>
+            <div><strong>Weapon 2:</strong> <%= user.Weapon2 %></div><br>
+            <div><strong>Armor:</strong> <%= user.Armor %></div><br>
         </div>
     </div>
     <div>
-        <a href="/users/<%= user.UserID %>/edit">Edit User</a>
+        <a class="button-28" href="/users/<%= user.UserID %>/edit">Edit User</a>
     </div>
 </div>
 </body>
