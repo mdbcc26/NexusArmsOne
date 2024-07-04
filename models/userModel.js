@@ -1,6 +1,7 @@
 const db = require('../services/database.js').config;
 const bcrypt = require('bcrypt');
 
+//Get all users from the database
 let getUsers = () => new Promise((resolve, reject) => {
     const sql = `
         SELECT 
@@ -23,6 +24,7 @@ let getUsers = () => new Promise((resolve, reject) => {
     });
 });
 
+//Get a single user from the database
 let getUser = (id) => new Promise(async (resolve, reject) => {
     const sql = `
         SELECT 
@@ -50,6 +52,7 @@ let getUser = (id) => new Promise(async (resolve, reject) => {
     });
 });
 
+//Update a user in the database
 let updateUser = (userData) => new Promise(async (resolve, reject) => {
     try {
         // Update or create loadout first
@@ -81,6 +84,7 @@ let updateUser = (userData) => new Promise(async (resolve, reject) => {
     }
 });
 
+// Helper function to insert or update a loadout
 let upsertLoadout = (userData) => new Promise((resolve, reject) => {
     // Check if the loadout exists for the user
     let sqlCheck = "SELECT LoadoutID FROM Users WHERE UserID = " + db.escape(userData.id);
@@ -126,6 +130,7 @@ let upsertLoadout = (userData) => new Promise((resolve, reject) => {
     });
 });
 
+//Get all roles from the database
 let getRoles = () => new Promise((resolve, reject) => {
     const sql = `SELECT * FROM Roles`;
     db.query(sql, (err, roles) => {
@@ -137,6 +142,7 @@ let getRoles = () => new Promise((resolve, reject) => {
     });
 });
 
+//Get all weapons from the database
 let getWeapons = () => new Promise((resolve, reject) => {
     const sql = `SELECT * FROM Weapons`;
     db.query(sql, (err, weapons) => {
@@ -148,6 +154,7 @@ let getWeapons = () => new Promise((resolve, reject) => {
     });
 });
 
+//Get all armors from the database
 let getArmors = () => new Promise((resolve, reject) => {
     const sql = `SELECT * FROM Armor`;
     db.query(sql, (err, armors) => {
@@ -159,6 +166,7 @@ let getArmors = () => new Promise((resolve, reject) => {
     });
 });
 
+//Add a new user to the database
 let addUser = (userData) => new Promise(async (resolve, reject) => {
     try {
         // Hash the password before storing it
@@ -184,6 +192,7 @@ let addUser = (userData) => new Promise(async (resolve, reject) => {
     }
 });
 
+//Delete a user from the database
 let deleteUser = (id) => new Promise((resolve, reject) => {
     console.log("Deleting user with ID: " + id);
     const sql = `DELETE FROM Users WHERE UserID = ${db.escape(id)}`;
