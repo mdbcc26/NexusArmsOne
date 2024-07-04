@@ -3,6 +3,32 @@
 <head>
     <title>User Details</title>
     <link rel="stylesheet" href="/style.css">
+    <script>
+        function deleteUser() {
+            if (confirm('Are you sure you want to delete this user?')) {
+                fetch(`/users/<%= user.UserID %>/delete`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data.message); // Optional: Log success message
+                        window.location.href = '/logout'; // Redirect to users list after deletion
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Handle error scenario if needed
+                    });
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="topnav">
@@ -25,6 +51,9 @@
     </div>
     <div>
         <a href="/users/<%= user.UserID %>/edit">Edit User</a>
+        <form id="deleteForm">
+            <button type="button" onclick="deleteUser()">Delete User</button>
+        </form>
     </div>
 </div>
 </body>

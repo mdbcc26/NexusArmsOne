@@ -87,11 +87,12 @@ function deleteUser(req,res) {
     console.log('deleteUser', req.params.id);
     userModel.deleteUser(req.params.id)
         .then(() => {
-            console.log('deleteUser success');
-            res.redirect('/');
+            console.log('User deleted successfully');
+            res.json({ message: 'User deleted successfully' });
+            //res.redirect('/users'); //Redirect to users list after deleting
         })
         .catch(err => {
-            console.log('deleteUser error', err);
+            console.log('Error deleting user:', err);
             res.sendStatus(500);
         });
 }

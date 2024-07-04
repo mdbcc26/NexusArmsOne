@@ -186,13 +186,14 @@ let addUser = (userData) => new Promise(async (resolve, reject) => {
 
 let deleteUser = (id) => new Promise((resolve, reject) => {
     console.log("Deleting user with ID: " + id);
-    let sql = `DELETE FROM Users WHERE UserID = ${db.escape(id)}`;
+    const sql = `DELETE FROM Users WHERE UserID = ${db.escape(id)}`;
     console.log(sql);
     db.query(sql, (err, result) => {
         if (err) {
             return reject(err);
         }
-        console.log(result.affectedRows + " rows have been deleted.");
+//      console.log(result.affectedRows + " rows have been deleted.");
+        console.log(`${result.affectedRows} user(s) deleted.`);
         resolve(result)
     });
 });

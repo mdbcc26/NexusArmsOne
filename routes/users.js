@@ -8,8 +8,7 @@ router.use(authenticationService.authenticateJWT)
 router.get('/', userController.getUsers);
 
 router.get('/:id', userController.getUser);
-router.delete('/:id/', userController.deleteUser);
-
+router.delete('/:id/delete', userController.deleteUser);
 router.get('/:id/edit', userController.editUser);
 router.post('/:id/update', userController.updateUser);
 
