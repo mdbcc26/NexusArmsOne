@@ -193,8 +193,10 @@ select{
 }
 
 .chat{
-    margin-top: 30px;
-    padding-left: 250px;
+   width: 50%;
+    margin: auto;
+    padding-top: 30px;
+
 }
 
 
@@ -220,12 +222,20 @@ select{
     background: rgb(0, 0, 0);
     max-width: 886px;
     border: #01cb01 2px solid;
+    padding: 20px;
 }
 .messages p {
-    color: #459b45;
-    font-weight: bolder;
+    color: lightgray;
+    font-weight: bold;
     max-width: 850px;
     padding: 5px;
     margin: 5px;
     background-color: green;
+}
+
+.homeText {
+    font-weight: bolder;
+    font-size: xx-large;
+    color: #006000;
+    text-align: center;
 }
