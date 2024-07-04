@@ -4,7 +4,7 @@ const userController = require('../controllers/userController.js');
 const authenticationService = require('../services/authentication.js');
 
 router.get('/', (req,res) => {
-    res.render('index', {title: 'the NIMM Project'});
+    res.render('index', {title: 'NexusArms'});
 });
 
 router.route('/login')
